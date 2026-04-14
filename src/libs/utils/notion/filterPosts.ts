@@ -39,5 +39,12 @@ export function filterPosts(
       if (!postType) return false
       return acceptType.includes(postType)
     })
+    // sort by date
+    .sort((a, b) => {
+      const dateA = new Date(a?.date?.start_date || a.createdTime)
+      const dateB = new Date(b?.date?.start_date || b.createdTime)
+      return dateB.getTime() - dateA.getTime()
+    })
+
   return filteredPosts
 }
