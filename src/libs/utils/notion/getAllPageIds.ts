@@ -8,13 +8,14 @@ export default function getAllPageIds(
   const collectionQuery = response.collection_query
   const views = Object.values(collectionQuery)[0]
 
+  if (!views) return []   // ← 이 줄이 핵심
+
   let pageIds: ID[] = []
   if (viewId) {
     const vId = idToUuid(viewId)
     pageIds = views[vId]?.blockIds
   } else {
     const pageSet = new Set<ID>()
-    // * type not exist
     Object.values(views).forEach((view: any) => {
       view?.collection_group_results?.blockIds?.forEach((id: ID) =>
         pageSet.add(id)
