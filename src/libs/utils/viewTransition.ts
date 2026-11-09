@@ -111,6 +111,9 @@ const nameFeedCards = () => {
     setStyle(card, NAME_PROPERTY, `${POST_CARD}-${id}`)
     setStyle(card, CLASS_PROPERTY, POST_CARD)
 
+    const category = card.querySelector<HTMLElement>(".category")
+    if (category) setStyle(category, NAME_PROPERTY, `${POST_CARD}-chip-${id}`)
+
     const thumbnail = card.querySelector<HTMLElement>(".thumbnail")
     if (!thumbnail) return
     setStyle(thumbnail, NAME_PROPERTY, `${POST_CARD}-thumb-${id}`)
