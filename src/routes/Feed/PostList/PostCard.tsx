@@ -6,6 +6,8 @@ import { TPost } from "../../../types"
 import Image from "next/image"
 import Category from "../../../components/Category"
 import styled from "@emotion/styled"
+import usePostView from "src/hooks/usePostView"
+import { handleLinkClick } from "src/libs/utils/viewTransition"
 
 type Props = {
   data: TPost
@@ -13,10 +15,15 @@ type Props = {
 
 const PostCard: React.FC<Props> = ({ data }) => {
   const category = (data.category && data.category?.[0]) || undefined
+  const [view] = usePostView()
 
   return (
-    <StyledWrapper href={`/${data.slug}`}>
-      <article>
+    <StyledWrapper
+      href={`/${data.slug}`}
+      data-view={view}
+      onClick={handleLinkClick}
+    >
+      <article data-post-id={data.id}>
         {category && (
           <div className="category">
             <Category>{category}</Category>
@@ -67,10 +74,9 @@ const StyledWrapper = styled(Link)`
     overflow: hidden;
     position: relative;
     margin-bottom: 1.5rem;
-    border-radius: 1rem;
-    background-color: ${({ theme }) =>
-      theme.scheme === "light" ? "white" : theme.colors.gray4};
-    transition-property: box-shadow;
+    border-radius: 1.75rem;
+    ${({ theme }) => theme.surfaces.clay}
+    transition-property: transform, box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
 
@@ -79,8 +85,15 @@ const StyledWrapper = styled(Link)`
     }
 
     :hover {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      transform: translateY(-4px);
+      ${({ theme }) => theme.surfaces.clayRaised}
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+      :hover {
+        transform: none;
+      }
     }
     > .category {
       position: absolute;
@@ -97,6 +110,10 @@ const StyledWrapper = styled(Link)`
 
       @media (min-width: 1024px) {
         padding-bottom: 50%;
+      }
+
+      @media (min-width: 1280px) {
+        padding-bottom: 40%;
       }
     }
     > .content {
@@ -121,7 +138,7 @@ const StyledWrapper = styled(Link)`
           margin-bottom: 0.5rem;
           font-size: 1.125rem;
           line-height: 1.75rem;
-          font-weight: 500;
+          font-weight: 700;
 
           cursor: pointer;
 
@@ -139,7 +156,7 @@ const StyledWrapper = styled(Link)`
         .content {
           font-size: 0.875rem;
           line-height: 1.25rem;
-          color: ${({ theme }) => theme.colors.gray10};
+          color: ${({ theme }) => theme.colors.gray11};
           @media (min-width: 768px) {
             margin-left: 0;
           }
@@ -159,7 +176,73 @@ const StyledWrapper = styled(Link)`
       }
       > .tags {
         display: flex;
+        width: fit-content;
         gap: 0.5rem;
+      }
+    }
+  }
+
+  &[data-view="small"] article {
+    display: flex;
+    margin-bottom: 1rem;
+
+    > .category {
+      top: 0.5rem;
+      left: 0.5rem;
+
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+
+    > .thumbnail {
+      flex: 0 0 6.5rem;
+      padding-bottom: 0;
+
+      @media (min-width: 768px) {
+        flex-basis: 13rem;
+      }
+    }
+
+    > .content {
+      flex: 1;
+      min-width: 0;
+      padding: 0.75rem 1rem;
+
+      @media (min-width: 768px) {
+        &[data-thumb="false"][data-category="true"] {
+          padding-top: 2.75rem;
+        }
+      }
+
+      > .top h2 {
+        margin-bottom: 0.25rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+      }
+
+      > .date {
+        margin-bottom: 0.5rem;
+      }
+
+      > .summary {
+        margin-bottom: 0.5rem;
+
+        p {
+          overflow: hidden;
+          line-height: 1.5rem;
+          display: none;
+
+          @media (min-width: 768px) {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+          }
+        }
+      }
+
+      > .tags {
+        flex-wrap: wrap;
       }
     }
   }

@@ -84,9 +84,45 @@ const StyledWrapper = styled.div`
     display: none !important;
   }
   .notion-page {
+    width: 100%;
     padding: 0;
   }
   .notion-list {
     width: 100%;
+  }
+  .notion-link {
+    color: ${({ theme }) => theme.surfaces.link};
+    border-bottom-color: ${({ theme }) => theme.surfaces.link};
+  }
+  .notion-callout {
+    border: none;
+    border-radius: 1.25rem;
+    ${({ theme }) => theme.surfaces.claySoft}
+  }
+  .notion-code {
+    border-radius: 1.25rem;
+  }
+  .notion-asset-wrapper img {
+    border-radius: 1rem;
+  }
+  .notion-simple-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid ${({ theme }) => theme.surfaces.tableLine};
+  }
+  .notion-simple-table td {
+    width: auto !important;
+    border: none;
+    border-bottom: 1px solid ${({ theme }) => theme.surfaces.tableLine};
+    overflow-wrap: anywhere;
+  }
+  .notion-simple-table tr:last-of-type td {
+    border-bottom: none;
+  }
+  .notion-simple-table-header-row td {
+    background: ${({ theme }) => theme.surfaces.tableHead};
   }
 `

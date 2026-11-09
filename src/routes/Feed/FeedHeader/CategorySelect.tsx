@@ -5,6 +5,7 @@ import { MdExpandMore } from "react-icons/md"
 import { DEFAULT_CATEGORY } from "src/constants"
 import styled from "@emotion/styled"
 import { useCategoriesQuery } from "src/hooks/useCategoriesQuery"
+import { navigateWithTransition } from "src/libs/utils/viewTransition"
 
 type Props = {}
 
@@ -16,7 +17,7 @@ const CategorySelect: React.FC<Props> = () => {
   const currentCategory = `${router.query.category || ``}` || DEFAULT_CATEGORY
 
   const handleOptionClick = (category: string) => {
-    router.push({
+    navigateWithTransition({
       query: {
         ...router.query,
         category,
@@ -57,18 +58,16 @@ const StyledWrapper = styled.div`
     align-items: center;
     font-size: 1.25rem;
     line-height: 1.75rem;
-    font-weight: 700;
+    font-weight: 800;
     cursor: pointer;
   }
   > .content {
     position: absolute;
     z-index: 40;
-    padding: 0.25rem;
-    border-radius: 0.75rem;
-    background-color: ${({ theme }) => theme.colors.gray2};
-    color: ${({ theme }) => theme.colors.gray10};
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 0.5rem;
+    border-radius: 1.25rem;
+    color: ${({ theme }) => theme.colors.gray12};
+    ${({ theme }) => theme.surfaces.glassStrong}
     > .item {
       padding: 0.25rem;
       padding-left: 0.5rem;
@@ -80,7 +79,7 @@ const StyledWrapper = styled.div`
       cursor: pointer;
 
       :hover {
-        background-color: ${({ theme }) => theme.colors.gray4};
+        ${({ theme }) => theme.surfaces.hover}
       }
     }
   }

@@ -46,10 +46,9 @@ const StyledWrapper = styled.div`
   }
   > .mid {
     padding: 0.5rem;
-    margin-bottom: 1rem;
-    border-radius: 1rem;
-    background-color: ${({ theme }) =>
-      theme.scheme === "light" ? "white" : theme.colors.gray4};
+    margin-bottom: 1.5rem;
+    border-radius: 1.75rem;
+    ${({ theme }) => theme.surfaces.clay}
     > .wrapper {
       display: flex;
       gap: 0.5rem;

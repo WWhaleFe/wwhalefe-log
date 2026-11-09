@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { useRouter } from "next/router"
 import React from "react"
+import { navigateWithTransition } from "src/libs/utils/viewTransition"
 
 type TOrder = "asc" | "desc"
 
@@ -12,7 +13,7 @@ const OrderButtons: React.FC<Props> = () => {
   const currentOrder = `${router.query.order || ``}` || ("desc" as TOrder)
 
   const handleClickOrderBy = (value: TOrder) => {
-    router.push({
+    navigateWithTransition({
       query: {
         ...router.query,
         order: value,
@@ -45,13 +46,15 @@ const StyledWrapper = styled.div`
   font-size: 0.875rem;
   line-height: 1.25rem;
   a {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
     cursor: pointer;
-    color: ${({ theme }) => theme.colors.gray10};
+    color: ${({ theme }) => theme.colors.gray12};
+    ${({ theme }) => theme.surfaces.claySoft}
 
     &[data-active="true"] {
       font-weight: 700;
-
-      color: ${({ theme }) => theme.colors.gray12};
+      ${({ theme }) => theme.surfaces.activePill}
     }
   }
 `

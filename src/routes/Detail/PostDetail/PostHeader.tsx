@@ -13,7 +13,7 @@ type Props = {
 const PostHeader: React.FC<Props> = ({ data }) => {
   return (
     <StyledWrapper>
-      <h1 className="title">{data.title}</h1>
+      <h1 className="title" data-post-part>{data.title}</h1>
       {data.type[0] !== "Paper" && (
         <nav>
           <div className="top">
@@ -32,7 +32,7 @@ const PostHeader: React.FC<Props> = ({ data }) => {
                 <div className="hr"></div>
               </>
             )}
-            <div className="date">
+            <div className="date" data-post-part>
               {formatDate(
                 data?.date?.start_date || data.createdTime,
                 CONFIG.lang
@@ -41,7 +41,7 @@ const PostHeader: React.FC<Props> = ({ data }) => {
           </div>
           <div className="mid">
             {data.tags && (
-              <div className="tags">
+              <div className="tags" data-post-part>
                 {data.tags.map((tag: string) => (
                   <Tag key={tag}>{tag}</Tag>
                 ))}
@@ -69,6 +69,8 @@ export default PostHeader
 
 const StyledWrapper = styled.div`
   .title {
+    view-transition-name: post-title;
+    width: fit-content;
     font-size: 1.875rem;
     line-height: 2.25rem;
     font-weight: 700;
@@ -94,6 +96,7 @@ const StyledWrapper = styled.div`
         background-color: ${({ theme }) => theme.colors.gray10};
       }
       .date {
+        view-transition-name: post-date;
         margin-right: 0.5rem;
 
         @media (min-width: 768px) {
@@ -106,6 +109,7 @@ const StyledWrapper = styled.div`
       margin-bottom: 1rem;
       align-items: center;
       .tags {
+        view-transition-name: post-tags;
         display: flex;
         overflow-x: auto;
         flex-wrap: nowrap;
@@ -114,6 +118,7 @@ const StyledWrapper = styled.div`
       }
     }
     .thumbnail {
+      view-transition-name: post-thumb;
       overflow: hidden;
       position: relative;
       margin-bottom: 1.75rem;

@@ -22,5 +22,12 @@ const ThemeToggle: React.FC<Props> = () => {
 export default ThemeToggle
 
 const StyledWrapper = styled.div`
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9999px;
+  ${({ theme }) => theme.surfaces.claySoft}
   cursor: pointer;
 `

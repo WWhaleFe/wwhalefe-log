@@ -20,7 +20,7 @@ const CONFIG = {
   blog: {
     title: "WWhaleFe-log",
     description: "welcome to WWhaleFe-log!",
-    scheme: "light", // 'light' | 'dark' | 'system'
+    scheme: "dark", // 'light' | 'dark' | 'system'
   },
 
   // CONFIG configration (required)
