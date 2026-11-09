@@ -90,6 +90,10 @@ const StyledWrapper = styled.div`
   .notion-list {
     width: 100%;
   }
+  .notion-inline-code,
+  .notion-link {
+    overflow-wrap: anywhere;
+  }
   .notion-link {
     color: ${({ theme }) => theme.surfaces.link};
     border-bottom-color: ${({ theme }) => theme.surfaces.link};
