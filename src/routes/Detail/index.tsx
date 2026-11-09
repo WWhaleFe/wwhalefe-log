@@ -17,7 +17,11 @@ const Detail: React.FC<Props> = () => {
     <StyledWrapper data-type={data.type}>
       {data.type[0] === "Page" && <PageDetail />}
       {data.type[0] !== "Page" && (
-        <BlogLayout showMobilePostLists rightTop={<TableOfContents />}>
+        <BlogLayout
+          showMobilePostLists
+          compactProfile
+          belowProfile={<TableOfContents />}
+        >
           <PostDetail />
         </BlogLayout>
       )}

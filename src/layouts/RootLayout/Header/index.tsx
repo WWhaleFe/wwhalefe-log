@@ -1,7 +1,9 @@
 import NavBar from "./NavBar"
 import Logo from "./Logo"
 import ThemeToggle from "./ThemeToggle"
+import PostViewToggle from "./PostViewToggle"
 import styled from "@emotion/styled"
+import { useRouter } from "next/router"
 import { zIndexes } from "src/styles/zIndexes"
 
 type Props = {
@@ -9,12 +11,15 @@ type Props = {
 }
 
 const Header: React.FC<Props> = ({ fullWidth }) => {
+  const router = useRouter()
+
   return (
     <StyledWrapper>
       <div data-full-width={fullWidth} className="container">
         <Logo />
         <div className="nav">
           <ThemeToggle />
+          {router.pathname === "/" && <PostViewToggle />}
           <NavBar />
         </div>
       </div>
@@ -29,7 +34,7 @@ const StyledWrapper = styled.div`
   position: sticky;
   top: 0.75rem;
   width: calc(100% - 2rem);
-  max-width: 1280px;
+  max-width: 1680px;
   margin: 0.75rem auto 0;
   border-radius: 1.5rem;
   ${({ theme }) => theme.surfaces.glass}
@@ -41,7 +46,7 @@ const StyledWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 1280px;
+    max-width: 1680px;
     height: 3rem;
     margin: 0 auto;
     &[data-full-width="true"] {

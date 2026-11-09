@@ -39,7 +39,7 @@ const StyledWrapper = styled(Link)`
   transition: font-size 0.2s ease;
 
   &[data-at-top="true"] {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
 
     @media (min-width: 768px) {
       font-size: 1.75rem;

@@ -51,11 +51,9 @@ const StyledWrapper = styled.div`
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
   border-radius: 2.25rem;
-  max-width: 56rem;
   ${({ theme }) => theme.surfaces.clay}
   margin: 0 auto;
   > article {
     margin: 0 auto;
-    max-width: 42rem;
   }
 `

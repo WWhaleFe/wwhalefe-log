@@ -5,6 +5,9 @@ import { CONFIG } from "site.config"
 import { queryKey } from "src/constants/queryKey"
 import { SchemeType } from "src/types"
 
+// 라이트가 기본값이던 때 저장된 쿠키를 무시하려고 이름을 바꿨다
+const SCHEME_COOKIE = "blog-scheme"
+
 type SetScheme = (scheme: SchemeType) => void
 
 const useScheme = (): [SchemeType, SetScheme] => {
@@ -20,7 +23,7 @@ const useScheme = (): [SchemeType, SetScheme] => {
   })
 
   const setScheme = (scheme: SchemeType) => {
-    setCookie("scheme", scheme)
+    setCookie(SCHEME_COOKIE, scheme)
 
     queryClient.setQueryData(queryKey.scheme(), scheme)
   }
@@ -28,7 +31,7 @@ const useScheme = (): [SchemeType, SetScheme] => {
   useEffect(() => {
     if (!window) return
 
-    const cachedScheme = getCookie("scheme") as SchemeType
+    const cachedScheme = getCookie(SCHEME_COOKIE) as SchemeType
     const defaultScheme = followsSystemTheme
       ? window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"

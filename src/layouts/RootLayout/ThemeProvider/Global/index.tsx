@@ -17,6 +17,8 @@ export const Global = () => {
           font-family: ${pretendard.style.fontFamily};
           font-weight: ${pretendard.style.fontWeight};
           font-style: ${pretendard.style.fontStyle};
+          -webkit-user-select: none;
+          user-select: none;
         }
 
         body::before {
@@ -74,6 +76,16 @@ export const Global = () => {
           outline: none;
           resize: none;
           color: inherit;
+        }
+
+        input,
+        textarea {
+          -webkit-user-select: text;
+          user-select: text;
+        }
+
+        .notion-code-copy {
+          display: none !important;
         }
 
         hr {

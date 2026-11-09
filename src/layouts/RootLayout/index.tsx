@@ -5,6 +5,7 @@ import Header from "./Header"
 import styled from "@emotion/styled"
 import Scripts from "src/layouts/RootLayout/Scripts"
 import useGtagEffect from "./useGtagEffect"
+import useBlockCopyEffect from "./useBlockCopyEffect"
 import Prism from "prismjs/prism"
 import 'prismjs/components/prism-markup-templating.js'
 import 'prismjs/components/prism-markup.js'
@@ -47,6 +48,7 @@ type Props = {
 const RootLayout = ({ children }: Props) => {
   const [scheme] = useScheme()
   useGtagEffect()
+  useBlockCopyEffect()
   useEffect(() => {
     Prism.highlightAll();
   }, []);
@@ -67,6 +69,6 @@ export default RootLayout
 const StyledMain = styled.main`
   margin: 0 auto;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1680px;
   padding: 0 1rem;
 `

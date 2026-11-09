@@ -22,7 +22,8 @@ const RECENT_POST_COUNT = 5
 type Props = {
   children: ReactNode
   showMobilePostLists?: boolean
-  rightTop?: ReactNode
+  compactProfile?: boolean
+  belowProfile?: ReactNode
   search?: {
     value: string
     onChange: ChangeEventHandler<HTMLInputElement>
@@ -32,7 +33,8 @@ type Props = {
 const BlogLayout: React.FC<Props> = ({
   children,
   showMobilePostLists = false,
-  rightTop,
+  compactProfile = false,
+  belowProfile,
   search,
 }) => {
   const router = useRouter()
@@ -83,8 +85,8 @@ const BlogLayout: React.FC<Props> = ({
           height: `calc(100vh - ${HEADER_HEIGHT}px)`,
         }}
       >
-        {rightTop}
-        <ProfileCard />
+        <ProfileCard compact={compactProfile} />
+        {belowProfile}
         <ServiceCard />
         <ContactCard />
         <form className="search" onSubmit={handleSearchSubmit}>

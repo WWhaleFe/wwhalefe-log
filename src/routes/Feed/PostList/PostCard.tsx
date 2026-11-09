@@ -6,6 +6,7 @@ import { TPost } from "../../../types"
 import Image from "next/image"
 import Category from "../../../components/Category"
 import styled from "@emotion/styled"
+import usePostView from "src/hooks/usePostView"
 
 type Props = {
   data: TPost
@@ -13,9 +14,10 @@ type Props = {
 
 const PostCard: React.FC<Props> = ({ data }) => {
   const category = (data.category && data.category?.[0]) || undefined
+  const [view] = usePostView()
 
   return (
-    <StyledWrapper href={`/${data.slug}`}>
+    <StyledWrapper href={`/${data.slug}`} data-view={view}>
       <article>
         {category && (
           <div className="category">
@@ -104,6 +106,10 @@ const StyledWrapper = styled(Link)`
       @media (min-width: 1024px) {
         padding-bottom: 50%;
       }
+
+      @media (min-width: 1280px) {
+        padding-bottom: 40%;
+      }
     }
     > .content {
       padding: 1rem;
@@ -166,6 +172,65 @@ const StyledWrapper = styled(Link)`
       > .tags {
         display: flex;
         gap: 0.5rem;
+      }
+    }
+  }
+
+  &[data-view="small"] article {
+    display: flex;
+    margin-bottom: 1rem;
+
+    > .category {
+      top: 0.5rem;
+      left: 0.5rem;
+
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+
+    > .thumbnail {
+      flex: 0 0 6.5rem;
+      padding-bottom: 0;
+
+      @media (min-width: 768px) {
+        flex-basis: 13rem;
+      }
+    }
+
+    > .content {
+      flex: 1;
+      min-width: 0;
+      padding: 0.75rem 1rem;
+
+      > .top h2 {
+        margin-bottom: 0.25rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+      }
+
+      > .date {
+        margin-bottom: 0.5rem;
+      }
+
+      > .summary {
+        margin-bottom: 0.5rem;
+
+        p {
+          overflow: hidden;
+          line-height: 1.5rem;
+          display: none;
+
+          @media (min-width: 768px) {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+          }
+        }
+      }
+
+      > .tags {
+        flex-wrap: wrap;
       }
     }
   }

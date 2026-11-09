@@ -8,8 +8,8 @@ import { formatDate } from "src/libs/utils"
 import { TPost } from "src/types"
 
 type Props = {
-  emoji: string
-  title: string
+  emoji?: string
+  title?: string
   posts: TPost[]
   showDate?: boolean
   control?: ReactNode
@@ -29,9 +29,11 @@ const PostTitleList: React.FC<Props> = ({
 
   return (
     <StyledWrapper>
-      <div className="top">
-        <Emoji>{emoji}</Emoji> {title}
-      </div>
+      {title && (
+        <div className="top">
+          <Emoji>{emoji}</Emoji> {title}
+        </div>
+      )}
       {control}
       <div className="list">
         {posts.map((post) => (

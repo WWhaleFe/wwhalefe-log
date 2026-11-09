@@ -39,8 +39,6 @@ const AllPostsList: React.FC<Props> = () => {
 
   return (
     <PostTitleList
-      emoji="📚"
-      title="All Posts"
       posts={visiblePosts}
       control={
         <StyledSelect
