@@ -12,6 +12,12 @@ const TagList: React.FC<Props> = () => {
   const data = useTagsQuery()
 
   const handleClickTag = (value: any) => {
+    // 글 상세 화면에서는 태그로 걸러진 메인 목록으로 이동한다
+    if (router.pathname !== "/") {
+      router.push(`/?tag=${value}`)
+      return
+    }
+
     // delete
     if (currentTag === value) {
       router.push({
@@ -80,8 +86,9 @@ const StyledWrapper = styled.div`
     }
 
     @media (min-width: 1024px) {
-      display: block;
-      padding: 0.5rem;
+      flex-wrap: wrap;
+      overflow: visible;
+      padding: 0.75rem;
       border-radius: 1.5rem;
       ${({ theme }) => theme.surfaces.glass}
     }

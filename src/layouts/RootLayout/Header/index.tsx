@@ -29,7 +29,7 @@ const StyledWrapper = styled.div`
   position: sticky;
   top: 0.75rem;
   width: calc(100% - 2rem);
-  max-width: 1120px;
+  max-width: 1280px;
   margin: 0.75rem auto 0;
   border-radius: 1.5rem;
   ${({ theme }) => theme.surfaces.glass}
@@ -41,7 +41,7 @@ const StyledWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 1120px;
+    max-width: 1280px;
     height: 3rem;
     margin: 0 auto;
     &[data-full-width="true"] {
