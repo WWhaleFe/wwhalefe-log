@@ -114,6 +114,7 @@ const StyledWrapper = styled.div`
       }
     }
     .thumbnail {
+      view-transition-name: post-thumb;
       overflow: hidden;
       position: relative;
       margin-bottom: 1.75rem;

@@ -88,6 +88,31 @@ export const Global = () => {
           display: none !important;
         }
 
+        ::view-transition-group(post-box),
+        ::view-transition-group(post-thumb),
+        ::view-transition-group(profile-box) {
+          animation-duration: 0.3s;
+          animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+          animation-duration: 0.2s;
+        }
+
+        ::view-transition-old(post-box),
+        ::view-transition-new(post-box),
+        ::view-transition-old(post-thumb),
+        ::view-transition-new(post-thumb),
+        ::view-transition-old(profile-box),
+        ::view-transition-new(profile-box) {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top;
+          animation-duration: 0.3s;
+        }
+
         hr {
           width: 100%;
           border: none;

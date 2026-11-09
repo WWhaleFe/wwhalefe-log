@@ -18,7 +18,7 @@ const PostDetail: React.FC<Props> = () => {
   const category = (data.category && data.category?.[0]) || undefined
 
   return (
-    <StyledWrapper>
+    <StyledWrapper data-post-box>
       <article>
         {category && (
           <div css={{ marginBottom: "0.5rem" }}>
@@ -51,6 +51,7 @@ const StyledWrapper = styled.div`
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
   border-radius: 2.25rem;
+  view-transition-name: post-box;
   ${({ theme }) => theme.surfaces.clay}
   margin: 0 auto;
   > article {

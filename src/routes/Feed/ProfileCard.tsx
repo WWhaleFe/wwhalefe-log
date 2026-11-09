@@ -48,6 +48,7 @@ const ProfileCard: React.FC<Props> = ({ compact = false }) => {
 export default ProfileCard
 
 const StyledCompact = styled.div`
+  view-transition-name: profile-box;
   display: flex;
   margin-bottom: 1.5rem;
   padding: 0.75rem 1rem;
@@ -97,6 +98,7 @@ const StyledWrapper = styled.div`
     margin-bottom: 0.75rem;
   }
   > .content {
+    view-transition-name: profile-box;
     margin-bottom: 2.25rem;
     border-radius: 1.75rem;
     width: 100%;
