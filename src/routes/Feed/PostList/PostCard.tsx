@@ -203,6 +203,12 @@ const StyledWrapper = styled(Link)`
       min-width: 0;
       padding: 0.75rem 1rem;
 
+      @media (min-width: 768px) {
+        &[data-thumb="false"][data-category="true"] {
+          padding-top: 2.75rem;
+        }
+      }
+
       > .top h2 {
         margin-bottom: 0.25rem;
         font-size: 1rem;
