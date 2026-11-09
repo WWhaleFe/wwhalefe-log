@@ -1,84 +1,87 @@
 import { CONFIG } from "site.config"
-import { NotionAPI } from "notion-client"
-import { idToUuid } from "notion-utils"
 
-import getAllPageIds from "src/libs/utils/notion/getAllPageIds"
-import getPageProperties from "src/libs/utils/notion/getPageProperties"
-import { unwrapRecordValue } from "src/libs/utils/notion/unwrapRecord"
-import { TPosts } from "src/types"
+import { customMapImageUrl } from "src/libs/utils/notion/customMapImageUrl"
+import { TPost, TPosts } from "src/types"
+import { getFileUrl, notionRequest, stripFileSignature } from "./notionApi"
 
-export const getPosts = async () => {
-  let id = CONFIG.notionConfig.pageId as string
-  const api = new NotionAPI()
+const plainText = (prop: any): string =>
+  (prop?.title ?? prop?.rich_text ?? [])
+    .map((item: any) => item.plain_text)
+    .join("")
 
-  const response = await api.getPage(id)
-  id = idToUuid(id)
+const selectName = (prop: any): string[] | undefined =>
+  prop?.select?.name ? [prop.select.name] : undefined
 
-  // collection_query가 비어있으면 직접 채운다
-  if (Object.keys(response.collection_query).length === 0) {
-    const rawMetadataForQuery = unwrapRecordValue(response.block[id])
-    if (
-      rawMetadataForQuery?.type === "collection_view_page" ||
-      rawMetadataForQuery?.type === "collection_view"
-    ) {
-      const collectionId = Object.keys(response.collection)[0]
-      const viewIds: string[] = rawMetadataForQuery?.view_ids || []
-      for (const viewId of viewIds) {
-        try {
-          const collectionView = unwrapRecordValue(response.collection_view[viewId])
-          const collectionData = await api.getCollectionData(
-            collectionId,
-            viewId,
-            collectionView
-          )
-          if (!response.collection_query[collectionId]) {
-            response.collection_query[collectionId] = {}
-          }
-          response.collection_query[collectionId][viewId] =
-            (collectionData as any)?.result?.reducerResults
-        } catch (e) {
-          console.warn("Failed to fetch collection data for view", viewId, e)
-        }
+const toPost = (page: any): TPost => {
+  const props = page.properties
+  const post: any = {
+    id: page.id,
+    title: plainText(props.title),
+    slug: plainText(props.slug),
+    summary: plainText(props.summary),
+    createdTime: new Date(page.created_time).toString(),
+    fullWidth: false,
+  }
+
+  const startDate = props.date?.date?.start
+  if (startDate) post.date = { start_date: startDate }
+
+  const status = selectName(props.status)
+  if (status) post.status = status
+  const type = selectName(props.type)
+  if (type) post.type = type
+  const category = selectName(props.category)
+  if (category) post.category = category
+
+  const tags = (props.tags?.multi_select ?? []).map((tag: any) => tag.name)
+  if (tags.length) post.tags = tags
+
+  const people = props.author?.people ?? []
+  if (people.length) {
+    post.author = people.map((user: any) => ({
+      id: user.id,
+      name: user.name || CONFIG.profile.name,
+      profile_photo: user.avatar_url || null,
+    }))
+  }
+
+  const thumbnailUrl = getFileUrl(props.thumbnail?.files?.[0])
+  if (thumbnailUrl) {
+    post.thumbnail = customMapImageUrl(stripFileSignature(thumbnailUrl), {
+      id: page.id,
+      parent_table: "block",
+    } as any)
+  }
+
+  return post
+}
+
+export const getPosts = async (): Promise<TPosts> => {
+  const pages: any[] = []
+  let cursor: string | undefined
+
+  do {
+    const res: any = await notionRequest(
+      `data_sources/${CONFIG.notionConfig.dataSourceId}/query`,
+      {
+        page_size: 100,
+        start_cursor: cursor,
+        // Private 글은 사이트로 아예 가져오지 않는다
+        filter: {
+          or: [
+            { property: "status", select: { equals: "Public" } },
+            { property: "status", select: { equals: "PublicOnDetail" } },
+          ],
+        },
       }
-    }
-  }
+    )
+    pages.push(...res.results)
+    cursor = res.has_more ? res.next_cursor : undefined
+  } while (cursor)
 
-  const collection = unwrapRecordValue(Object.values(response.collection)[0])
-  const block = response.block
-  const schema = collection?.schema
-
-  const rawMetadata = unwrapRecordValue(block[id])
-
-  if (
-    rawMetadata?.type !== "collection_view_page" &&
-    rawMetadata?.type !== "collection_view"
-  ) {
-    return []
-  } else {
-    const pageIds = getAllPageIds(response)
-    const wholeBlocks = await (await api.getBlocks(pageIds)).recordMap.block
-
-    const data = []
-    for (let i = 0; i < pageIds.length; i++) {
-      const id = pageIds[i]
-      const properties =
-        (await getPageProperties(id, wholeBlocks, schema)) || null
-      const blockData = unwrapRecordValue(wholeBlocks[id])
-      if (!blockData) continue
-
-      properties.createdTime = new Date(blockData?.created_time).toString()
-      properties.fullWidth = (blockData?.format as any)?.page_full_width ?? false
-
-      data.push(properties)
-    }
-
-    data.sort((a: any, b: any) => {
-      const dateA: any = new Date(a?.date?.start_date || a.createdTime)
-      const dateB: any = new Date(b?.date?.start_date || b.createdTime)
-      return dateB - dateA
-    })
-
-    const posts = data as TPosts
-    return posts
-  }
+  return pages.map(toPost).sort((a, b) => {
+    const dateA = new Date(a.date?.start_date || a.createdTime).getTime()
+    const dateB = new Date(b.date?.start_date || b.createdTime).getTime()
+    return dateB - dateA
+  })
 }

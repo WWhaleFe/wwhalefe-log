@@ -54,6 +54,7 @@ const PostHeader: React.FC<Props> = ({ data }) => {
                 src={data.thumbnail}
                 css={{ objectFit: "cover" }}
                 fill
+                unoptimized
                 alt={data.title}
               />
             </div>
