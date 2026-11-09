@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import { useRouter } from "next/router"
 import React, {
   ChangeEventHandler,
   FormEvent,
@@ -13,6 +12,7 @@ import ProfileCard from "src/routes/Feed/ProfileCard"
 import SearchInput from "src/routes/Feed/SearchInput"
 import ServiceCard from "src/routes/Feed/ServiceCard"
 import TagList from "src/routes/Feed/TagList"
+import { navigateWithTransition } from "src/libs/utils/viewTransition"
 import PostTitleList from "./PostTitleList"
 import AllPostsList from "./AllPostsList"
 
@@ -37,7 +37,6 @@ const BlogLayout: React.FC<Props> = ({
   belowProfile,
   search,
 }) => {
-  const router = useRouter()
   const posts = usePostsQuery()
   const [keyword, setKeyword] = useState("")
 
@@ -45,7 +44,7 @@ const BlogLayout: React.FC<Props> = ({
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (search) return
-    router.push(keyword ? `/?q=${encodeURIComponent(keyword)}` : "/")
+    navigateWithTransition(keyword ? `/?q=${encodeURIComponent(keyword)}` : "/")
   }
 
   const recentPosts = (

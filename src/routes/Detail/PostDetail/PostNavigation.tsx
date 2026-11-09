@@ -4,7 +4,7 @@ import React from "react"
 import { CONFIG } from "site.config"
 import usePostsQuery from "src/hooks/usePostsQuery"
 import { formatDate } from "src/libs/utils"
-import { handlePostLinkClick } from "src/libs/utils/viewTransition"
+import { handleLinkClick } from "src/libs/utils/viewTransition"
 import { TPost } from "src/types"
 
 const RELATED_POST_COUNT = 3
@@ -40,7 +40,7 @@ const PostNavigation: React.FC<Props> = ({ data }) => {
       {(newer || older) && (
         <div className="pager">
           {older ? (
-            <Link href={`/${older.slug}`} onClick={handlePostLinkClick}>
+            <Link href={`/${older.slug}`} onClick={handleLinkClick}>
               <span className="label">← Previous</span>
               <span className="title">{older.title}</span>
             </Link>
@@ -51,7 +51,7 @@ const PostNavigation: React.FC<Props> = ({ data }) => {
             <Link
               href={`/${newer.slug}`}
               data-align="right"
-              onClick={handlePostLinkClick}
+              onClick={handleLinkClick}
             >
               <span className="label">Next →</span>
               <span className="title">{newer.title}</span>
@@ -68,7 +68,7 @@ const PostNavigation: React.FC<Props> = ({ data }) => {
             <Link
               key={post.slug}
               href={`/${post.slug}`}
-              onClick={handlePostLinkClick}
+              onClick={handleLinkClick}
             >
               <span className="title">{post.title}</span>
               <span className="label">

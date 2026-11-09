@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import Link from "next/link"
+import { handleLinkClick } from "src/libs/utils/viewTransition"
 
 const NavBar: React.FC = () => {
   const links = [{ id: 1, name: "About", to: "/about" }]
@@ -8,7 +9,9 @@ const NavBar: React.FC = () => {
       <ul>
         {links.map((link) => (
           <li key={link.id}>
-            <Link href={link.to}>{link.name}</Link>
+            <Link href={link.to} onClick={handleLinkClick}>
+              {link.name}
+            </Link>
           </li>
         ))}
       </ul>

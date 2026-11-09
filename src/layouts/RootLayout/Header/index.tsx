@@ -30,6 +30,7 @@ const Header: React.FC<Props> = ({ fullWidth }) => {
 export default Header
 
 const StyledWrapper = styled.div`
+  view-transition-name: site-header;
   z-index: ${zIndexes.header};
   position: sticky;
   top: 0.75rem;

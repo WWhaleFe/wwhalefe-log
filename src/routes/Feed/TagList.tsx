@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import React from "react"
 import { Emoji } from "src/components/Emoji"
 import { useTagsQuery } from "src/hooks/useTagsQuery"
+import { navigateWithTransition } from "src/libs/utils/viewTransition"
 
 type Props = {}
 
@@ -14,13 +15,13 @@ const TagList: React.FC<Props> = () => {
   const handleClickTag = (value: any) => {
     // 글 상세 화면에서는 태그로 걸러진 메인 목록으로 이동한다
     if (router.pathname !== "/") {
-      router.push(`/?tag=${value}`)
+      navigateWithTransition(`/?tag=${value}`)
       return
     }
 
     // delete
     if (currentTag === value) {
-      router.push({
+      navigateWithTransition({
         query: {
           ...router.query,
           tag: undefined,
@@ -29,7 +30,7 @@ const TagList: React.FC<Props> = () => {
     }
     // add
     else {
-      router.push({
+      navigateWithTransition({
         query: {
           ...router.query,
           tag: value,

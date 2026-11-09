@@ -2,6 +2,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { CONFIG } from "site.config"
 import styled from "@emotion/styled"
+import { handleLinkClick } from "src/libs/utils/viewTransition"
 
 const SCROLL_TOP_THRESHOLD = 8
 
@@ -21,6 +22,7 @@ const Logo = () => {
       href="/"
       aria-label={CONFIG.blog.title}
       data-at-top={isAtTop}
+      onClick={handleLinkClick}
     >
       {CONFIG.blog.title}
     </StyledWrapper>

@@ -5,7 +5,7 @@ import React, { ReactNode } from "react"
 import { CONFIG } from "site.config"
 import { Emoji } from "src/components/Emoji"
 import { formatDate } from "src/libs/utils"
-import { handlePostLinkClick } from "src/libs/utils/viewTransition"
+import { handleLinkClick } from "src/libs/utils/viewTransition"
 import { TPost } from "src/types"
 
 type Props = {
@@ -36,13 +36,14 @@ const PostTitleList: React.FC<Props> = ({
         </div>
       )}
       {control}
-      <div className="list">
+      <div className="list" data-text-list={control ? true : undefined}>
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/${post.slug}`}
             data-active={post.slug === currentSlug}
-            onClick={handlePostLinkClick}
+            data-post-id={post.id}
+            onClick={handleLinkClick}
           >
             <span className="title">{post.title}</span>
             {showDate && (

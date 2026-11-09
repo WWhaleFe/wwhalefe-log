@@ -3,6 +3,7 @@ import { getCookie } from "cookies-next"
 import React, { useEffect } from "react"
 import { MdViewAgenda, MdViewList } from "react-icons/md"
 import usePostView, { POST_VIEW_COOKIE } from "src/hooks/usePostView"
+import { animateFeedUpdate } from "src/libs/utils/viewTransition"
 
 type Props = {}
 
@@ -20,7 +21,9 @@ const PostViewToggle: React.FC<Props> = () => {
       type="button"
       aria-label={nextLabel}
       title={nextLabel}
-      onClick={() => setView(view === "large" ? "small" : "large")}
+      onClick={() =>
+        animateFeedUpdate(() => setView(view === "large" ? "small" : "large"))
+      }
     >
       {view === "large" ? <MdViewAgenda /> : <MdViewList />}
     </StyledWrapper>

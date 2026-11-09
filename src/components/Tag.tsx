@@ -1,22 +1,19 @@
 import styled from "@emotion/styled"
-import { useRouter } from "next/router"
-import React from "react"
+import React, { MouseEvent } from "react"
+import { navigateWithTransition } from "src/libs/utils/viewTransition"
 
 type Props = {
   children: string
 }
 
 const Tag: React.FC<Props> = ({ children }) => {
-  const router = useRouter()
-
-  const handleClick = (value: string) => {
-    router.push(`/?tag=${value}`)
+  // 글 카드 링크 안에 있으므로 카드의 글 이동이 함께 실행되지 않게 막는다
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    navigateWithTransition(`/?tag=${children}`)
   }
-  return (
-    <StyledWrapper onClick={() => handleClick(children)}>
-      {children}
-    </StyledWrapper>
-  )
+  return <StyledWrapper onClick={handleClick}>{children}</StyledWrapper>
 }
 
 export default Tag

@@ -119,6 +119,38 @@ export const Global = () => {
           animation-duration: 0.3s;
         }
 
+        ::view-transition-group(.post-card),
+        ::view-transition-group(.post-card-thumb) {
+          animation-duration: 0.3s;
+          animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+          overflow: clip;
+          border-radius: 1.5rem;
+        }
+
+        ::view-transition-group(.text-post),
+        ::view-transition-group(text-list-panel) {
+          animation-duration: 0.3s;
+          animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        ::view-transition-group(text-list-panel) {
+          overflow: clip;
+          border-radius: 1.5rem;
+        }
+
+        ::view-transition-old(.text-post),
+        ::view-transition-new(.text-post),
+        ::view-transition-old(text-list-panel),
+        ::view-transition-new(text-list-panel),
+        ::view-transition-old(.post-card),
+        ::view-transition-new(.post-card),
+        ::view-transition-old(.post-card-thumb),
+        ::view-transition-new(.post-card-thumb) {
+          animation-duration: 0.3s;
+        }
+
+        ::view-transition-old(.post-card-thumb),
+        ::view-transition-new(.post-card-thumb),
         ::view-transition-old(post-thumb),
         ::view-transition-new(post-thumb) {
           width: 100%;

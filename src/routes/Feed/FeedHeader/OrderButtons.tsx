@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { useRouter } from "next/router"
 import React from "react"
+import { navigateWithTransition } from "src/libs/utils/viewTransition"
 
 type TOrder = "asc" | "desc"
 
@@ -12,7 +13,7 @@ const OrderButtons: React.FC<Props> = () => {
   const currentOrder = `${router.query.order || ``}` || ("desc" as TOrder)
 
   const handleClickOrderBy = (value: TOrder) => {
-    router.push({
+    navigateWithTransition({
       query: {
         ...router.query,
         order: value,

@@ -1,5 +1,5 @@
-import { useRouter } from "next/router"
-import React from "react"
+import React, { MouseEvent } from "react"
+import { navigateWithTransition } from "src/libs/utils/viewTransition"
 import { COLOR_SET } from "./constants"
 import styled from "@emotion/styled"
 import { colors } from "src/styles"
@@ -23,15 +23,16 @@ type Props = {
 }
 
 const Category: React.FC<Props> = ({ readOnly = false, children }) => {
-  const router = useRouter()
-
-  const handleClick = (value: string) => {
+  // 글 카드 링크 안에 있으므로 카드의 글 이동이 함께 실행되지 않게 막는다
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     if (readOnly) return
-    router.push(`/?category=${value}`)
+    e.preventDefault()
+    e.stopPropagation()
+    navigateWithTransition(`/?category=${children}`)
   }
   return (
     <StyledWrapper
-      onClick={() => handleClick(children)}
+      onClick={handleClick}
       css={{
         backgroundColor: getColorClassByName(children),
         cursor: readOnly ? "default" : "pointer",

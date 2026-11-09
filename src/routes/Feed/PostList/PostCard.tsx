@@ -7,7 +7,7 @@ import Image from "next/image"
 import Category from "../../../components/Category"
 import styled from "@emotion/styled"
 import usePostView from "src/hooks/usePostView"
-import { handlePostLinkClick } from "src/libs/utils/viewTransition"
+import { handleLinkClick } from "src/libs/utils/viewTransition"
 
 type Props = {
   data: TPost
@@ -21,9 +21,9 @@ const PostCard: React.FC<Props> = ({ data }) => {
     <StyledWrapper
       href={`/${data.slug}`}
       data-view={view}
-      onClick={handlePostLinkClick}
+      onClick={handleLinkClick}
     >
-      <article>
+      <article data-post-id={data.id}>
         {category && (
           <div className="category">
             <Category>{category}</Category>

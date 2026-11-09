@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import React, { useEffect, useRef, useState } from "react"
 import usePostsQuery from "src/hooks/usePostsQuery"
 import { useTagsQuery } from "src/hooks/useTagsQuery"
+import { animateUpdate } from "src/libs/utils/viewTransition"
 import PostTitleList from "./PostTitleList"
 
 const ALL_TAGS = ""
@@ -44,7 +45,10 @@ const AllPostsList: React.FC<Props> = () => {
         <StyledSelect
           aria-label="Filter posts by tag"
           value={selectedTag}
-          onChange={(e) => select(e.target.value)}
+          onChange={(e) => {
+            const tag = e.target.value
+            animateUpdate(() => select(tag))
+          }}
         >
           <option value={ALL_TAGS}>All tags ({posts.length})</option>
           {Object.keys(tags).map((tag) => (
