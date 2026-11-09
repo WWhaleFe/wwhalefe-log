@@ -14,11 +14,13 @@ const RECENT_POST_COUNT = 5
 type Props = {
   children: ReactNode
   showMobilePostLists?: boolean
+  rightTop?: ReactNode
 }
 
 const BlogLayout: React.FC<Props> = ({
   children,
   showMobilePostLists = false,
+  rightTop,
 }) => {
   const posts = usePostsQuery()
 
@@ -59,6 +61,7 @@ const BlogLayout: React.FC<Props> = ({
           height: `calc(100vh - ${HEADER_HEIGHT}px)`,
         }}
       >
+        {rightTop}
         <ProfileCard />
         <ServiceCard />
         <ContactCard />

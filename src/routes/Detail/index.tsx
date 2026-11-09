@@ -4,6 +4,7 @@ import PageDetail from "./PageDetail"
 import styled from "@emotion/styled"
 import usePostQuery from "src/hooks/usePostQuery"
 import BlogLayout from "src/layouts/BlogLayout"
+import TableOfContents from "./PostDetail/TableOfContents"
 
 type Props = {}
 
@@ -16,7 +17,7 @@ const Detail: React.FC<Props> = () => {
     <StyledWrapper data-type={data.type}>
       {data.type[0] === "Page" && <PageDetail />}
       {data.type[0] !== "Page" && (
-        <BlogLayout showMobilePostLists>
+        <BlogLayout showMobilePostLists rightTop={<TableOfContents />}>
           <PostDetail />
         </BlogLayout>
       )}

@@ -1,6 +1,7 @@
 import React from "react"
 import PostHeader from "./PostHeader"
 import Footer from "./PostFooter"
+import PostNavigation from "./PostNavigation"
 import CommentBox from "./CommentBox"
 import Category from "src/components/Category"
 import styled from "@emotion/styled"
@@ -32,6 +33,7 @@ const PostDetail: React.FC<Props> = () => {
         </div>
         {data.type[0] === "Post" && (
           <>
+            <PostNavigation data={data} />
             <Footer />
             <CommentBox data={data} />
           </>
