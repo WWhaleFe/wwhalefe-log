@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import React from "react"
+import React, { ReactNode } from "react"
 import { CONFIG } from "site.config"
 import { Emoji } from "src/components/Emoji"
 import { formatDate } from "src/libs/utils"
@@ -12,6 +12,7 @@ type Props = {
   title: string
   posts: TPost[]
   showDate?: boolean
+  control?: ReactNode
 }
 
 const PostTitleList: React.FC<Props> = ({
@@ -19,6 +20,7 @@ const PostTitleList: React.FC<Props> = ({
   title,
   posts,
   showDate = false,
+  control,
 }) => {
   const router = useRouter()
   const currentSlug = router.query.slug
@@ -30,6 +32,7 @@ const PostTitleList: React.FC<Props> = ({
       <div className="top">
         <Emoji>{emoji}</Emoji> {title}
       </div>
+      {control}
       <div className="list">
         {posts.map((post) => (
           <Link
