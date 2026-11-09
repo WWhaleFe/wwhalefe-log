@@ -142,6 +142,14 @@ const StyledWrapper = styled.div`
     }
   }
 
+  > .lt {
+    view-transition-name: sidebar-left;
+  }
+
+  > .rt {
+    view-transition-name: sidebar-right;
+  }
+
   > .mid {
     min-width: 0;
 

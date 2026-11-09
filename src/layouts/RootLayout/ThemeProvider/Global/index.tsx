@@ -90,9 +90,19 @@ export const Global = () => {
 
         ::view-transition-group(post-box),
         ::view-transition-group(post-thumb),
-        ::view-transition-group(profile-box) {
+        ::view-transition-group(profile-box),
+        ::view-transition-group(sidebar-left),
+        ::view-transition-group(sidebar-right),
+        ::view-transition-group(site-logo) {
           animation-duration: 0.3s;
           animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        ::view-transition-group(post-box),
+        ::view-transition-group(post-thumb),
+        ::view-transition-group(profile-box) {
+          overflow: clip;
+          border-radius: 1.5rem;
         }
 
         ::view-transition-old(root),
@@ -106,11 +116,14 @@ export const Global = () => {
         ::view-transition-new(post-thumb),
         ::view-transition-old(profile-box),
         ::view-transition-new(profile-box) {
+          animation-duration: 0.3s;
+        }
+
+        ::view-transition-old(post-thumb),
+        ::view-transition-new(post-thumb) {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: top;
-          animation-duration: 0.3s;
         }
 
         hr {

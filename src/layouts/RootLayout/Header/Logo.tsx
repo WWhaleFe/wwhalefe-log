@@ -30,6 +30,7 @@ const Logo = () => {
 export default Logo
 
 const StyledWrapper = styled(Link)`
+  view-transition-name: site-logo;
   font-size: 1rem;
   font-weight: 800;
   background: ${({ theme }) => theme.surfaces.brandText};
