@@ -1,4 +1,4 @@
-import Router, { BeforePopStateCallback } from "next/router"
+import Router from "next/router"
 import { MouseEvent } from "react"
 
 type ViewTransition = {
@@ -137,11 +137,9 @@ export const handlePostLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
 
 const getPath = (url: string) => url.split(/[?#]/)[0]
 
-export const handlePopState: BeforePopStateCallback = ({
-  url,
-  as,
-  options,
-}) => {
+type PopStateHandler = Parameters<typeof Router.beforePopState>[0]
+
+export const handlePopState: PopStateHandler = ({ url, as, options }) => {
   const fromPath = getPath(Router.asPath)
   const toPath = getPath(as)
   if (fromPath === toPath || !canAnimateTransition()) return true
@@ -150,7 +148,9 @@ export const handlePopState: BeforePopStateCallback = ({
   scrollPositions.set(Router.asPath, window.scrollY)
   runTransition(
     () =>
-      isLeavingFeed ? nameAsPostBox(findPostCard(toPath)) : prepareLeavingPost(),
+      isLeavingFeed
+        ? nameAsPostBox(findPostCard(toPath))
+        : prepareLeavingPost(),
     () => Router.replace(url, as, { ...options, scroll: false }),
     () => {
       window.scrollTo(0, scrollPositions.get(as) ?? 0)
