@@ -48,12 +48,9 @@ const StyledWrapper = styled.div`
   padding-right: 1.5rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
-  border-radius: 1.5rem;
+  border-radius: 2.25rem;
   max-width: 56rem;
-  background-color: ${({ theme }) =>
-    theme.scheme === "light" ? "white" : theme.colors.gray4};
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  ${({ theme }) => theme.surfaces.clay}
   margin: 0 auto;
   > article {
     margin: 0 auto;

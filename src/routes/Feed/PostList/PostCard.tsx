@@ -67,10 +67,9 @@ const StyledWrapper = styled(Link)`
     overflow: hidden;
     position: relative;
     margin-bottom: 1.5rem;
-    border-radius: 1rem;
-    background-color: ${({ theme }) =>
-      theme.scheme === "light" ? "white" : theme.colors.gray4};
-    transition-property: box-shadow;
+    border-radius: 1.75rem;
+    ${({ theme }) => theme.surfaces.clay}
+    transition-property: transform, box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
 
@@ -79,8 +78,15 @@ const StyledWrapper = styled(Link)`
     }
 
     :hover {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      transform: translateY(-4px);
+      ${({ theme }) => theme.surfaces.clayRaised}
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+      :hover {
+        transform: none;
+      }
     }
     > .category {
       position: absolute;
@@ -121,7 +127,7 @@ const StyledWrapper = styled(Link)`
           margin-bottom: 0.5rem;
           font-size: 1.125rem;
           line-height: 1.75rem;
-          font-weight: 500;
+          font-weight: 700;
 
           cursor: pointer;
 
@@ -139,7 +145,7 @@ const StyledWrapper = styled(Link)`
         .content {
           font-size: 0.875rem;
           line-height: 1.25rem;
-          color: ${({ theme }) => theme.colors.gray10};
+          color: ${({ theme }) => theme.colors.gray11};
           @media (min-width: 768px) {
             margin-left: 0;
           }

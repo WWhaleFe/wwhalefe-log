@@ -27,9 +27,12 @@ export default Header
 const StyledWrapper = styled.div`
   z-index: ${zIndexes.header};
   position: sticky;
-  top: 0;
-  background-color: ${({ theme }) => theme.colors.gray2};
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  top: 0.75rem;
+  width: calc(100% - 2rem);
+  max-width: 1120px;
+  margin: 0.75rem auto 0;
+  border-radius: 1.5rem;
+  ${({ theme }) => theme.surfaces.glass}
 
   .container {
     display: flex;

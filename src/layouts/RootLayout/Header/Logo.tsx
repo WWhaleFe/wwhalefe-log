@@ -12,4 +12,10 @@ const Logo = () => {
 
 export default Logo
 
-const StyledWrapper = styled(Link)``
+const StyledWrapper = styled(Link)`
+  font-weight: 800;
+  background: ${({ theme }) => theme.surfaces.brandText};
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+`

@@ -77,6 +77,8 @@ const StyledWrapper = styled.div`
     display: none;
     overflow: scroll;
     position: sticky;
+    padding: 0.25rem 1.25rem 2rem;
+    margin: 0 -1.25rem;
     grid-column: span 2 / span 2;
     top: ${HEADER_HEIGHT - 10}px;
 
@@ -124,6 +126,8 @@ const StyledWrapper = styled.div`
     display: none;
     overflow: scroll;
     position: sticky;
+    padding: 0.25rem 1.25rem 2rem;
+    margin: 0 -1.25rem;
     top: ${HEADER_HEIGHT - 10}px;
 
     @media (min-width: 1024px) {

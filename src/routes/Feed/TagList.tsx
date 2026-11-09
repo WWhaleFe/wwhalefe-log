@@ -68,7 +68,8 @@ const StyledWrapper = styled.div`
   .list {
     display: flex;
     margin-bottom: 1.5rem;
-    gap: 0.25rem;
+    gap: 0.5rem;
+    padding: 0.25rem 0.25rem 0.75rem;
     overflow: scroll;
 
     scrollbar-width: none;
@@ -80,6 +81,9 @@ const StyledWrapper = styled.div`
 
     @media (min-width: 1024px) {
       display: block;
+      padding: 0.5rem;
+      border-radius: 1.5rem;
+      ${({ theme }) => theme.surfaces.glass}
     }
 
     a {
@@ -92,20 +96,15 @@ const StyledWrapper = styled.div`
       border-radius: 0.75rem;
       font-size: 0.875rem;
       line-height: 1.25rem;
-      color: ${({ theme }) => theme.colors.gray10};
+      color: ${({ theme }) => theme.colors.gray12};
       flex-shrink: 0;
       cursor: pointer;
 
       :hover {
-        background-color: ${({ theme }) => theme.colors.gray4};
+        ${({ theme }) => theme.surfaces.hover}
       }
       &[data-active="true"] {
-        color: ${({ theme }) => theme.colors.gray12};
-        background-color: ${({ theme }) => theme.colors.gray4};
-
-        :hover {
-          background-color: ${({ theme }) => theme.colors.gray4};
-        }
+        ${({ theme }) => theme.surfaces.activePill}
       }
     }
   }

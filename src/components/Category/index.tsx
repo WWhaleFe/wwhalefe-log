@@ -53,6 +53,7 @@ const StyledWrapper = styled.div`
   width: fit-content;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  opacity: 0.9;
+  font-weight: 600;
   color: ${colors.dark.gray1};
+  ${({ theme }) => theme.surfaces.chipShadow}
 `

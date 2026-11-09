@@ -22,13 +22,16 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.gray10};
+  color: ${({ theme }) => theme.colors.gray12};
   a {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
     cursor: pointer;
+    ${({ theme }) => theme.surfaces.claySoft}
 
     :hover {
-      color: ${({ theme }) => theme.colors.gray12};
+      ${({ theme }) => theme.surfaces.activePill}
     }
   }
 `
