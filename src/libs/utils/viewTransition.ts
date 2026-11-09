@@ -23,6 +23,12 @@ type RouteTransition = {
 const FEED_PATH = "/"
 const POST_BOX = "post-box"
 const POST_THUMB = "post-thumb"
+const POST_PARTS = [
+  [".category", "post-chip"],
+  ["h2", "post-title"],
+  [".date .content", "post-date"],
+  [".tags", "post-tags"],
+]
 const POST_CARD = "post-card"
 const TEXT_LIST = "text-list-panel"
 const TEXT_POST = "text-post"
@@ -83,6 +89,11 @@ const nameAsPostBox = (element?: HTMLElement | null) => {
 
   const thumbnail = element.querySelector<HTMLElement>(".thumbnail")
   if (thumbnail) setStyle(thumbnail, NAME_PROPERTY, POST_THUMB)
+
+  POST_PARTS.forEach(([selector, name]) => {
+    const part = element.querySelector<HTMLElement>(selector)
+    if (part) setStyle(part, NAME_PROPERTY, name)
+  })
 }
 
 // 화면 근처의 카드만 각자 움직이게 해서 글이 많아도 전환이 무거워지지 않게 한다
@@ -142,8 +153,9 @@ const prepareLeavingPost = () => {
   }
 
   setStyle(box, NAME_PROPERTY, "none")
-  const thumbnail = box.querySelector<HTMLElement>(".thumbnail")
-  if (thumbnail) setStyle(thumbnail, NAME_PROPERTY, "none")
+  box
+    .querySelectorAll<HTMLElement>(".thumbnail, [data-post-part]")
+    .forEach((part) => setStyle(part, NAME_PROPERTY, "none"))
 }
 
 const runTransition = (
@@ -184,9 +196,10 @@ const transitionRoute = ({
   runTransition(
     () => {
       nameTextList()
-      if (staysOnFeed) nameFeedCards()
-      else if (wasOnFeed) nameAsPostBox(source ?? findPostCard(targetPath))
-      else prepareLeavingPost()
+      if (wasOnFeed) nameFeedCards()
+      if (wasOnFeed && !staysOnFeed)
+        nameAsPostBox(source ?? findPostCard(targetPath))
+      if (!wasOnFeed) prepareLeavingPost()
     },
     navigate,
     () => {
@@ -195,10 +208,10 @@ const transitionRoute = ({
       }
 
       nameTextList()
-      if (staysOnFeed) nameFeedCards()
-      else if (Router.pathname === FEED_PATH)
-        nameAsPostBox(findVisiblePostCard(fromPath))
-      else clampPostBox()
+      const isOnFeed = Router.pathname === FEED_PATH
+      if (isOnFeed) nameFeedCards()
+      if (isOnFeed && !staysOnFeed) nameAsPostBox(findVisiblePostCard(fromPath))
+      if (!isOnFeed) clampPostBox()
     }
   )
 }

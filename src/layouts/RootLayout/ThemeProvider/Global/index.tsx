@@ -3,6 +3,8 @@ import { Global as _Global, css, useTheme } from "@emotion/react"
 import { ThemeProvider as _ThemeProvider } from "@emotion/react"
 import { pretendard } from "src/assets"
 
+const SPRING_EASING = "cubic-bezier(0.34, 1.3, 0.64, 1)"
+
 export const Global = () => {
   const theme = useTheme()
 
@@ -88,21 +90,14 @@ export const Global = () => {
           display: none !important;
         }
 
-        ::view-transition-group(post-box),
-        ::view-transition-group(post-thumb),
-        ::view-transition-group(profile-box),
-        ::view-transition-group(sidebar-left),
-        ::view-transition-group(sidebar-right),
-        ::view-transition-group(site-logo) {
-          animation-duration: 0.3s;
-          animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+        ::view-transition-group(*) {
+          animation-duration: 0.4s;
+          animation-timing-function: ${SPRING_EASING};
         }
 
-        ::view-transition-group(post-box),
-        ::view-transition-group(post-thumb),
-        ::view-transition-group(profile-box) {
-          overflow: clip;
-          border-radius: 1.5rem;
+        ::view-transition-old(*),
+        ::view-transition-new(*) {
+          animation-duration: 0.3s;
         }
 
         ::view-transition-old(root),
@@ -110,43 +105,14 @@ export const Global = () => {
           animation-duration: 0.2s;
         }
 
-        ::view-transition-old(post-box),
-        ::view-transition-new(post-box),
-        ::view-transition-old(post-thumb),
-        ::view-transition-new(post-thumb),
-        ::view-transition-old(profile-box),
-        ::view-transition-new(profile-box) {
-          animation-duration: 0.3s;
-        }
-
+        ::view-transition-group(post-box),
+        ::view-transition-group(post-thumb),
+        ::view-transition-group(profile-box),
+        ::view-transition-group(text-list-panel),
         ::view-transition-group(.post-card),
         ::view-transition-group(.post-card-thumb) {
-          animation-duration: 0.3s;
-          animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
           overflow: clip;
           border-radius: 1.5rem;
-        }
-
-        ::view-transition-group(.text-post),
-        ::view-transition-group(text-list-panel) {
-          animation-duration: 0.3s;
-          animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
-        }
-
-        ::view-transition-group(text-list-panel) {
-          overflow: clip;
-          border-radius: 1.5rem;
-        }
-
-        ::view-transition-old(.text-post),
-        ::view-transition-new(.text-post),
-        ::view-transition-old(text-list-panel),
-        ::view-transition-new(text-list-panel),
-        ::view-transition-old(.post-card),
-        ::view-transition-new(.post-card),
-        ::view-transition-old(.post-card-thumb),
-        ::view-transition-new(.post-card-thumb) {
-          animation-duration: 0.3s;
         }
 
         ::view-transition-old(.post-card-thumb),
@@ -156,6 +122,54 @@ export const Global = () => {
           width: 100%;
           height: 100%;
           object-fit: cover;
+        }
+
+        @keyframes view-pop-in {
+          from {
+            opacity: 0;
+            transform: translateY(1.5rem) scale(0.88);
+          }
+        }
+
+        @keyframes view-pop-out {
+          to {
+            opacity: 0;
+            transform: translateY(1.5rem) scale(0.88);
+          }
+        }
+
+        @keyframes view-slide-in {
+          from {
+            opacity: 0;
+            transform: translateX(-1.25rem);
+          }
+        }
+
+        @keyframes view-slide-out {
+          to {
+            opacity: 0;
+            transform: translateX(-1.25rem);
+          }
+        }
+
+        ::view-transition-new(post-box):only-child,
+        ::view-transition-new(.post-card):only-child,
+        ::view-transition-new(.side-section):only-child {
+          animation: view-pop-in 0.4s ${SPRING_EASING} both;
+        }
+
+        ::view-transition-old(post-box):only-child,
+        ::view-transition-old(.post-card):only-child,
+        ::view-transition-old(.side-section):only-child {
+          animation: view-pop-out 0.25s ease-in both;
+        }
+
+        ::view-transition-new(.text-post):only-child {
+          animation: view-slide-in 0.35s ease-out both;
+        }
+
+        ::view-transition-old(.text-post):only-child {
+          animation: view-slide-out 0.2s ease-in both;
         }
 
         hr {

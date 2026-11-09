@@ -21,7 +21,14 @@ const PostDetail: React.FC<Props> = () => {
     <StyledWrapper data-post-box>
       <article>
         {category && (
-          <div css={{ marginBottom: "0.5rem" }}>
+          <div
+            data-post-part
+            css={{
+              marginBottom: "0.5rem",
+              width: "fit-content",
+              viewTransitionName: "post-chip",
+            }}
+          >
             <Category readOnly={data.status?.[0] === "PublicOnDetail"}>
               {category}
             </Category>

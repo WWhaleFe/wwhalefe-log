@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import React, {
   ChangeEventHandler,
+  CSSProperties,
   FormEvent,
   ReactNode,
   useState,
@@ -29,6 +30,22 @@ type Props = {
     onChange: ChangeEventHandler<HTMLInputElement>
   }
 }
+
+const SideSection: React.FC<{ name: string; children: ReactNode }> = ({
+  name,
+  children,
+}) => (
+  <div
+    style={
+      {
+        viewTransitionName: `side-${name}`,
+        viewTransitionClass: "side-section",
+      } as CSSProperties
+    }
+  >
+    {children}
+  </div>
+)
 
 const BlogLayout: React.FC<Props> = ({
   children,
@@ -65,9 +82,11 @@ const BlogLayout: React.FC<Props> = ({
           height: `calc(100vh - ${HEADER_HEIGHT}px)`,
         }}
       >
-        {recentPosts}
-        <TagList />
-        {allPosts}
+        <SideSection name="recent">{recentPosts}</SideSection>
+        <SideSection name="tags">
+          <TagList />
+        </SideSection>
+        <SideSection name="all-posts">{allPosts}</SideSection>
       </aside>
       <div className="mid">
         {children}
@@ -85,18 +104,26 @@ const BlogLayout: React.FC<Props> = ({
         }}
       >
         <ProfileCard compact={compactProfile} />
-        {belowProfile}
-        <ServiceCard />
-        <ContactCard />
-        <form className="search" onSubmit={handleSearchSubmit}>
-          <SearchInput
-            value={search?.value ?? keyword}
-            onChange={search?.onChange ?? ((e) => setKeyword(e.target.value))}
-          />
-        </form>
-        <div className="footer">
-          <Footer />
-        </div>
+        <SideSection name="below-profile">{belowProfile}</SideSection>
+        <SideSection name="service">
+          <ServiceCard />
+        </SideSection>
+        <SideSection name="contact">
+          <ContactCard />
+        </SideSection>
+        <SideSection name="search">
+          <form className="search" onSubmit={handleSearchSubmit}>
+            <SearchInput
+              value={search?.value ?? keyword}
+              onChange={search?.onChange ?? ((e) => setKeyword(e.target.value))}
+            />
+          </form>
+        </SideSection>
+        <SideSection name="footer">
+          <div className="footer">
+            <Footer />
+          </div>
+        </SideSection>
       </aside>
     </StyledWrapper>
   )
