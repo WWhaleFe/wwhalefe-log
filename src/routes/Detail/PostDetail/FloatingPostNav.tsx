@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
-import { MdChevronLeft, MdChevronRight } from "react-icons/md"
+import { MdChevronLeft, MdChevronRight, MdHome } from "react-icons/md"
 import usePostsQuery from "src/hooks/usePostsQuery"
 import { handleLinkClick } from "src/libs/utils/viewTransition"
 import { zIndexes } from "src/styles/zIndexes"
@@ -29,8 +29,6 @@ const FloatingPostNav: React.FC<Props> = ({ data }) => {
     return () => observer.disconnect()
   }, [data.slug])
 
-  if (!older && !newer) return null
-
   return (
     <StyledWrapper aria-label="Post navigation" data-hidden={isPagerVisible}>
       {older ? (
@@ -44,6 +42,15 @@ const FloatingPostNav: React.FC<Props> = ({ data }) => {
       ) : (
         <span />
       )}
+      <Link
+        href="/"
+        className="home"
+        aria-label="Blog home"
+        title="Blog home"
+        onClick={handleLinkClick}
+      >
+        <MdHome aria-hidden />
+      </Link>
       {newer ? (
         <Link
           href={`/${newer.slug}`}
@@ -72,7 +79,8 @@ const StyledWrapper = styled.nav`
   bottom: calc(1rem + env(safe-area-inset-bottom));
   z-index: ${zIndexes.header};
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
   gap: 0.25rem;
   width: min(40rem, calc(100% - 2rem));
   padding: 0.375rem;
@@ -113,6 +121,18 @@ const StyledWrapper = styled.nav`
     svg {
       flex-shrink: 0;
       font-size: 1.375rem;
+    }
+  }
+
+  a.home {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    justify-content: center;
+    ${({ theme }) => theme.surfaces.claySoft}
+
+    svg {
+      font-size: 1.25rem;
     }
   }
 
