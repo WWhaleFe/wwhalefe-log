@@ -17,15 +17,21 @@ const getRelatedScore = (post: TPost, current: TPost) => {
   return sharedTags + (sameCategory ? CATEGORY_WEIGHT : 0)
 }
 
+export const getAdjacentPosts = (posts: TPost[], slug: string) => {
+  const index = posts.findIndex((post) => post.slug === slug)
+  return {
+    newer: index > 0 ? posts[index - 1] : undefined,
+    older: index >= 0 ? posts[index + 1] : undefined,
+  }
+}
+
 type Props = {
   data: TPost
 }
 
 const PostNavigation: React.FC<Props> = ({ data }) => {
   const posts = usePostsQuery()
-  const index = posts.findIndex((post) => post.slug === data.slug)
-  const newer = index > 0 ? posts[index - 1] : undefined
-  const older = index >= 0 ? posts[index + 1] : undefined
+  const { newer, older } = getAdjacentPosts(posts, data.slug)
 
   const related = posts
     .filter((post) => post.slug !== data.slug)
@@ -38,7 +44,7 @@ const PostNavigation: React.FC<Props> = ({ data }) => {
   return (
     <StyledWrapper>
       {(newer || older) && (
-        <div className="pager">
+        <div className="pager" data-post-pager>
           {older ? (
             <Link href={`/${older.slug}`} onClick={handleLinkClick}>
               <span className="label">← Previous</span>
