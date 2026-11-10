@@ -6,11 +6,18 @@ class MyDocument extends Document {
     return (
       <Html lang={CONFIG.lang}>
         <Head>
-          <link rel="icon" href="/favicon.ico" />
+          {/* 프로필 이미지로 만든 아이콘. 바꿀 때는 v 값을 올려 브라우저 캐시를 비운다 */}
+          <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png?v=2"
+          />
           <link
             rel="apple-touch-icon"
-            sizes="192x192"
-            href="/apple-touch-icon.png"
+            sizes="180x180"
+            href="/apple-touch-icon.png?v=2"
           ></link>
           <link
             rel="alternate"
