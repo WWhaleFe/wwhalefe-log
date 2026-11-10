@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import { useRouter } from "next/router"
 import React from "react"
 import { Emoji } from "src/components/Emoji"
+import { ALL_TAG } from "src/constants"
 import { useTagsQuery } from "src/hooks/useTagsQuery"
 import { navigateWithTransition } from "src/libs/utils/viewTransition"
 
@@ -11,6 +12,18 @@ const TagList: React.FC<Props> = () => {
   const router = useRouter()
   const currentTag = router.query.tag || undefined
   const data = useTagsQuery()
+  const tagNames = Object.keys(data).filter((tag) => tag !== ALL_TAG)
+  const isAllActive = !currentTag || currentTag === ALL_TAG
+
+  const handleClickAll = () => {
+    if (router.pathname !== "/") {
+      navigateWithTransition("/")
+      return
+    }
+
+    const { tag, ...query } = router.query
+    navigateWithTransition({ query })
+  }
 
   const handleClickTag = (value: any) => {
     // 글 상세 화면에서는 태그로 걸러진 메인 목록으로 이동한다
@@ -45,7 +58,10 @@ const TagList: React.FC<Props> = () => {
         <Emoji>🏷️</Emoji> Tags
       </div>
       <div className="list">
-        {Object.keys(data).map((key) => (
+        <a data-active={isAllActive} onClick={handleClickAll}>
+          {ALL_TAG}
+        </a>
+        {tagNames.map((key) => (
           <a
             key={key}
             data-active={key === currentTag}

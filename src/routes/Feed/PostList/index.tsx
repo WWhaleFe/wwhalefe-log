@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import PostCard from "src/routes/Feed/PostList/PostCard"
-import { DEFAULT_CATEGORY } from "src/constants"
+import { ALL_TAG, DEFAULT_CATEGORY } from "src/constants"
 import usePostsQuery from "src/hooks/usePostsQuery"
 
 type Props = {
@@ -28,7 +28,7 @@ const PostList: React.FC<Props> = ({ q }) => {
       })
 
       // tag
-      if (currentTag) {
+      if (currentTag && currentTag !== ALL_TAG) {
         newFilteredPosts = newFilteredPosts.filter(
           (post) => post && post.tags && post.tags.includes(currentTag)
         )

@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import { useRouter } from "next/router"
 import React, { useEffect, useRef, useState } from "react"
 import usePostsQuery from "src/hooks/usePostsQuery"
+import { ALL_TAG } from "src/constants"
 import { useTagsQuery } from "src/hooks/useTagsQuery"
 import { animateUpdate } from "src/libs/utils/viewTransition"
 import PostTitleList from "./PostTitleList"
@@ -33,7 +34,8 @@ const AllPostsList: React.FC<Props> = () => {
     select(currentTag)
   }, [currentTag])
 
-  const selectedTag = selected in tags ? selected : ALL_TAGS
+  const tagNames = Object.keys(tags).filter((tag) => tag !== ALL_TAG)
+  const selectedTag = tagNames.includes(selected) ? selected : ALL_TAGS
   const visiblePosts = selectedTag
     ? posts.filter((post) => post.tags?.includes(selectedTag))
     : posts
@@ -51,7 +53,7 @@ const AllPostsList: React.FC<Props> = () => {
           }}
         >
           <option value={ALL_TAGS}>All tags ({posts.length})</option>
-          {Object.keys(tags).map((tag) => (
+          {tagNames.map((tag) => (
             <option key={tag} value={tag}>
               {tag} ({tags[tag]})
             </option>
