@@ -64,15 +64,10 @@ const CONFIG = {
       label: "💬 Utterances",
     },
   },
-  // 댓글은 GitHub Discussions 에 저장된다. 검열은 .github/workflows/comment-moderation.yml
-  giscus: {
+  // 익명 댓글(닉네임+비밀번호). Notion 「💬 블로그 댓글」 DB 에 저장되고 status 로 관리한다
+  comments: {
     enable: true,
-    config: {
-      repo: "WWhaleFe/wwhalefe-log",
-      repoId: "R_kgDOSCPCPw",
-      category: "Comments",
-      categoryId: "DIC_kwDOSCPCP84DLLH1",
-    },
+    dataSourceId: "41934b7a-9e74-81a1-8f2d-000b6b659135",
   },
   cusdis: {
     enable: false,

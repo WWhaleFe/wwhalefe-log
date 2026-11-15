@@ -6,14 +6,15 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export const notionRequest = async <T = any>(
   path: string,
-  body?: unknown
+  body?: unknown,
+  method: "GET" | "POST" | "PATCH" = body ? "POST" : "GET"
 ): Promise<T> => {
   const token = process.env.NOTION_TOKEN
   if (!token) throw new Error("NOTION_TOKEN is not set")
 
   for (let attempt = 0; ; attempt++) {
     const res = await fetch(`${API_URL}/${path}`, {
-      method: body ? "POST" : "GET",
+      method,
       headers: {
         Authorization: `Bearer ${token}`,
         "Notion-Version": API_VERSION,
