@@ -12,6 +12,10 @@ const CONFIG = {
   },
   projects: [
     {
+      name: `WWhaleFe Apps`,
+      href: "https://wwhalefe-apps.vercel.app/",
+    },
+    {
       name: `WWhaleFe-log`,
       href: "https://github.com/WWhaleFe/WWhaleFe-log",
     },
