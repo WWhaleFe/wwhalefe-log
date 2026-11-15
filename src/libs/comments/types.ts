@@ -20,8 +20,8 @@ export const LIMITS = {
   name: 20,
   password: { min: 4, max: 64 },
   body: 2000,
-  // 같은 사람이 연달아 쓰는 간격(초)
-  cooldown: 15,
+  // 같은 사람이 연달아 쓰는 간격(초). Notion 의 작성 시각이 분 단위라 1분보다 짧게 잡을 수 없다
+  cooldown: 60,
   // 화면을 연 뒤 이 시간(ms)보다 빨리 제출하면 봇으로 본다
   minTypingMs: 3000,
 }

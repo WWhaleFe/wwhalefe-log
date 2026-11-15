@@ -119,7 +119,7 @@ async function create(req: NextApiRequest, res: NextApiResponse) {
     if (await postedRecently(client, LIMITS.cooldown)) {
       return res
         .status(429)
-        .json({ message: `${LIMITS.cooldown}초 뒤에 다시 써 주세요.` })
+        .json({ message: "댓글은 1분에 한 번 쓸 수 있습니다. 잠시 후 다시 써 주세요." })
     }
   }
 
