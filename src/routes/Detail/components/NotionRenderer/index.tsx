@@ -114,9 +114,17 @@ const StyledWrapper = styled.div`
     border-radius: 1rem;
   }
   /* Images added without a width in Notion (e.g. through the API) span the
-     whole column; cap them and keep them centred. Narrower ones are unchanged. */
+     whole column, so tall screenshots fill the screen. Cap the width and the
+     height, keep the aspect ratio, and centre them. Smaller ones are unchanged. */
   .notion-asset-wrapper-image > div {
     max-width: min(100%, 720px) !important;
+  }
+  .notion-asset-wrapper-image > div > img {
+    width: auto !important;
+    max-width: 100%;
+    max-height: min(70vh, 600px);
+    align-self: center;
+    object-fit: contain !important;
   }
   .notion-simple-table {
     width: 100%;
