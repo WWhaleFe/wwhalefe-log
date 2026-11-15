@@ -1,0 +1,79 @@
+/* dark.css·light.css 가 함께 쓰는 모양. 색은 각 파일의 변수로 받는다 */
+main,
+main .gsc-main {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+}
+
+/* 작성 상자: 글 이동 카드와 같은 claySoft 카드 */
+main .gsc-comment-box {
+  border: none;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: var(--clay-soft);
+  box-shadow: var(--clay-soft-shadow);
+}
+main .gsc-comment-box-tabs {
+  background: transparent;
+  border-color: var(--color-border-muted);
+}
+main .gsc-comment-box-tabs button {
+  border-radius: 9999px 9999px 0 0;
+}
+main .gsc-comment-box-textarea,
+main .gsc-comment-box-textarea-extras {
+  background: var(--field);
+  border-color: var(--color-border-muted);
+}
+main .gsc-comment-box-textarea {
+  border-radius: 0.875rem 0.875rem 0 0;
+}
+main .gsc-comment-box-textarea-extras {
+  border-radius: 0 0 0.875rem 0.875rem;
+}
+main .gsc-comment-box-textarea:focus {
+  border-color: var(--color-accent-muted);
+  box-shadow: 0 0 0 3px var(--color-accent-subtle);
+}
+
+/* 주요 버튼: 사이트의 활성 알약(분홍→보라) */
+main .btn,
+main .btn-primary {
+  border-radius: 9999px;
+}
+main .btn-primary {
+  background: var(--pill);
+  box-shadow: var(--pill-shadow);
+  border: none;
+}
+main .btn-primary:hover {
+  background: var(--pill);
+  filter: brightness(1.08);
+}
+
+/* 댓글 하나하나: claySoft 카드 */
+main .gsc-comment > div {
+  border: none;
+  border-radius: 1.25rem;
+  background: var(--clay-soft);
+  box-shadow: var(--clay-soft-shadow);
+}
+main .gsc-reply-box,
+main .gsc-replies {
+  border-color: var(--color-border-muted);
+}
+
+/* 작성 시각은 GitHub 로 가는 링크라 수정·삭제 경로가 된다. 눈에 띄게 둔다 */
+main .gsc-comment-header a:has(time) {
+  color: var(--color-accent-fg);
+}
+
+/* 반응·정렬 버튼 */
+main .gsc-social-reaction-summary-item,
+main .gsc-reactions-button,
+main .gsc-header button {
+  border-radius: 9999px;
+}
+main .gsc-reactions-popover {
+  border-radius: 1rem;
+}

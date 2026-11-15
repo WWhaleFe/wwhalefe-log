@@ -1,0 +1,51 @@
+/* 블로그 다크 테마(clay·glass)에 맞춘 giscus 테마. 색은 src/styles/surfaces.ts 의 dark 값 */
+@import url("https://giscus.app/themes/dark.css");
+@import url("./common.css");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+main {
+  --clay-soft: linear-gradient(145deg, #3d2d70, #2c2052);
+  --clay-soft-shadow: 3px 4px 9px rgba(0, 0, 0, 0.4),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.14),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+  --pill: linear-gradient(135deg, #d6006e, #6a1bff);
+  --pill-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.35),
+    inset -2px -2px 5px rgba(40, 0, 90, 0.35), 0 6px 14px rgba(106, 27, 255, 0.35);
+  --field: rgba(10, 4, 30, 0.35);
+
+  --color-fg-default: #eeeeee;
+  --color-fg-muted: #b4b4b4;
+  --color-fg-subtle: #9a8fbf;
+  --color-canvas-default: transparent;
+  --color-canvas-overlay: #2c2052;
+  --color-canvas-inset: var(--field);
+  --color-canvas-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-default: rgba(255, 255, 255, 0.16);
+  --color-border-muted: rgba(255, 255, 255, 0.1);
+  --color-neutral-muted: rgba(255, 255, 255, 0.14);
+  --color-accent-fg: #ff8cc8;
+  --color-accent-emphasis: #d6006e;
+  --color-accent-muted: rgba(255, 122, 192, 0.4);
+  --color-accent-subtle: rgba(255, 122, 192, 0.12);
+  --color-btn-text: #eeeeee;
+  --color-btn-bg: rgba(255, 255, 255, 0.08);
+  --color-btn-border: rgba(255, 255, 255, 0.16);
+  --color-btn-hover-bg: rgba(255, 255, 255, 0.14);
+  --color-btn-hover-border: rgba(255, 255, 255, 0.24);
+  --color-btn-active-bg: rgba(255, 255, 255, 0.18);
+  --color-btn-selected-bg: rgba(255, 255, 255, 0.12);
+  --color-btn-primary-bg: #d6006e;
+  --color-btn-primary-hover-bg: #e01a7e;
+  --color-btn-primary-border: transparent;
+  --color-btn-primary-hover-border: transparent;
+  --color-btn-primary-disabled-bg: rgba(214, 0, 110, 0.45);
+  --color-btn-primary-disabled-border: transparent;
+  --color-segmented-control-bg: rgba(255, 255, 255, 0.06);
+  --color-segmented-control-button-bg: #3d2d70;
+  --color-segmented-control-button-selected-border: rgba(255, 255, 255, 0.24);
+  --color-action-list-item-default-hover-bg: rgba(255, 255, 255, 0.12);
+  --color-scale-gray-7: rgba(255, 255, 255, 0.12);
+  --color-scale-blue-8: rgba(214, 0, 110, 0.35);
+  --color-social-reaction-bg-hover: rgba(255, 255, 255, 0.12);
+  --color-social-reaction-bg-reacted-hover: rgba(214, 0, 110, 0.35);
+}
