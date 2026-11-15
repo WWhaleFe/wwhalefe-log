@@ -19,7 +19,8 @@ const CONFIG = {
   // blog setting (required)
   blog: {
     title: "WWhaleFe-log",
-    description: "welcome to WWhaleFe-log!",
+    description:
+      "Microsoft 365·Intune·Azure·Windows Server 등 IT 인프라 실무를 정리하는 WWhaleFe의 기술 블로그",
     scheme: "dark", // 'light' | 'dark' | 'system'
   },
 
@@ -42,14 +43,15 @@ const CONFIG = {
       measurementId: process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID || "",
     },
   },
+  // 확인 코드는 Vercel 환경변수로 넣는다. 값이 있을 때만 메타 태그를 출력한다
   googleSearchConsole: {
-    enable: false,
+    enable: !!process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
     config: {
       siteVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
     },
   },
   naverSearchAdvisor: {
-    enable: false,
+    enable: !!process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION,
     config: {
       siteVerification: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION || "",
     },
@@ -60,6 +62,16 @@ const CONFIG = {
       repo: process.env.NEXT_PUBLIC_UTTERANCES_REPO || "",
       "issue-term": "og:title",
       label: "💬 Utterances",
+    },
+  },
+  // 댓글은 GitHub Discussions 에 저장된다. 검열은 .github/workflows/comment-moderation.yml
+  giscus: {
+    enable: true,
+    config: {
+      repo: "WWhaleFe/wwhalefe-log",
+      repoId: "R_kgDOSCPCPw",
+      category: "Comments",
+      categoryId: "DIC_kwDOSCPCP84DLLH1",
     },
   },
   cusdis: {

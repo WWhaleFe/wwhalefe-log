@@ -1,0 +1,39 @@
+# 블로그 댓글(giscus) 자동 검열. 규칙은 .github/moderation/rules.json
+name: Comment moderation
+
+on:
+  discussion_comment:
+    types: [created, edited]
+  # 시험·재검사용: 댓글 node id(DC_kw...)를 넣고 수동 실행한다
+  workflow_dispatch:
+    inputs:
+      comment_id:
+        description: "검사할 댓글 node id (DC_로 시작)"
+        required: true
+
+permissions:
+  contents: read
+  discussions: write
+
+jobs:
+  moderate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      MODERATION_TOKEN: ${{ secrets.MODERATION_TOKEN }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      INPUT_COMMENT_ID: ${{ inputs.comment_id }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/moderation
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Claude SDK (AI 판정을 켰을 때만)
+        if: env.ANTHROPIC_API_KEY != ''
+        working-directory: .github/moderation
+        run: npm install --no-save --no-package-lock @anthropic-ai/sdk
+      - name: Moderate
+        run: node .github/moderation/moderate.mjs

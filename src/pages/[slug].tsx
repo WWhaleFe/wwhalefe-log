@@ -59,9 +59,9 @@ const DetailPage: NextPageWithLayout = () => {
 
   if (!post) return <CustomError />
 
+  // 썸네일이 없으면 제목으로 OG 이미지를 만든다
   const image =
     post.thumbnail ??
-    CONFIG.ogImageGenerateURL ??
     `${CONFIG.ogImageGenerateURL}/${encodeURIComponent(post.title)}.png`
 
   const date = post.date?.start_date || post.createdTime || ""
@@ -72,7 +72,7 @@ const DetailPage: NextPageWithLayout = () => {
     image: image,
     description: post.summary || "",
     type: post.type[0],
-    url: `${CONFIG.link}/${post.slug}`,
+    url: `${CONFIG.link}/${encodeURIComponent(post.slug)}`,
   }
 
   return (
