@@ -113,6 +113,11 @@ const StyledWrapper = styled.div`
   .notion-asset-wrapper img {
     border-radius: 1rem;
   }
+  /* Images added without a width in Notion (e.g. through the API) span the
+     whole column; cap them and keep them centred. Narrower ones are unchanged. */
+  .notion-asset-wrapper-image > div {
+    max-width: min(100%, 720px) !important;
+  }
   .notion-simple-table {
     width: 100%;
     border-collapse: separate;
