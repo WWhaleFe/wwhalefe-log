@@ -1,23 +1,5 @@
 {
-  "_doc": "댓글 자동 검열 규칙. 수정 후 main 에 푸시하면 다음 댓글부터 적용된다. 설명은 README.md",
-  "dryRun": false,
-  "categories": [
-    "Comments"
-  ],
-  "allowUsers": [],
-  "blockedUsers": [],
-  "actions": {
-    "blockedUser": [
-      "delete"
-    ],
-    "spam": [
-      "delete",
-      "block"
-    ],
-    "abuse": [
-      "delete"
-    ]
-  },
+  "_doc": "익명 댓글 자동 검열 규칙. 등록 요청마다 서버가 검사해, 걸리면 Notion 에 status=Spam 으로만 남기고 화면에는 올리지 않는다. 수정 후 main 에 푸시하면 적용된다",
   "spam": {
     "maxLinks": 2,
     "patterns": [
@@ -117,7 +99,7 @@
     ]
   },
   "ai": {
-    "_doc": "규칙에 걸리지 않은 댓글을 Claude 로 한 번 더 판정한다. enabled 를 true 로 바꾸고 저장소 Secret ANTHROPIC_API_KEY 를 등록하면 켜진다",
+    "_doc": "규칙에 걸리지 않은 댓글을 Claude 로 한 번 더 판정한다. enabled 를 true 로 바꾸고 Vercel 환경변수 ANTHROPIC_API_KEY 를 넣으면 켜진다",
     "enabled": false,
     "model": "claude-haiku-5-5"
   }

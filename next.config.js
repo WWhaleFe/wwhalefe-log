@@ -1,14 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // giscus 가 댓글 테마 CSS 를 교차 출처(crossorigin)로 읽는다
-  async headers() {
-    return [
-      {
-        source: "/giscus/:file*",
-        headers: [{ key: "Access-Control-Allow-Origin", value: "*" }],
-      },
-    ]
-  },
   images: {
     remotePatterns: [
       {

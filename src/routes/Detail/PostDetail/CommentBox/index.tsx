@@ -8,9 +8,9 @@ const UtterancesComponent = dynamic(
   },
   { ssr: false }
 )
-const GiscusComponent = dynamic(
+const CommentsComponent = dynamic(
   () => {
-    return import("./Giscus")
+    return import("./Comments")
   },
   { ssr: false }
 )
@@ -28,7 +28,7 @@ type Props = {
 const CommentBox: React.FC<Props> = ({ data }) => {
   return (
     <div>
-      {CONFIG.giscus.enable && <GiscusComponent term={data.slug} />}
+      {CONFIG.comments.enable && <CommentsComponent slug={data.slug} />}
       {CONFIG.utterances.enable && <UtterancesComponent issueTerm={data.id} />}
       {CONFIG.cusdis.enable && (
         <CusdisComponent id={data.id} slug={data.slug} title={data.title} />
