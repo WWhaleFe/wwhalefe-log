@@ -1,0 +1,124 @@
+{
+  "_doc": "댓글 자동 검열 규칙. 수정 후 main 에 푸시하면 다음 댓글부터 적용된다. 설명은 README.md",
+  "dryRun": false,
+  "categories": [
+    "Comments"
+  ],
+  "allowUsers": [],
+  "blockedUsers": [],
+  "actions": {
+    "blockedUser": [
+      "delete"
+    ],
+    "spam": [
+      "delete",
+      "block"
+    ],
+    "abuse": [
+      "delete"
+    ]
+  },
+  "spam": {
+    "maxLinks": 2,
+    "patterns": [
+      "카지노",
+      "바카라",
+      "토토",
+      "슬롯머신",
+      "먹튀",
+      "홀덤",
+      "파워볼",
+      "스포츠\\s*배팅",
+      "대출",
+      "급전",
+      "작업대출",
+      "개인회생",
+      "야동",
+      "성인\\s*(사이트|방송|용품)",
+      "조건\\s*만남",
+      "출장\\s*(안마|마사지)",
+      "오피\\s*(사이트|정보)",
+      "부업",
+      "재택\\s*알바",
+      "고수익",
+      "수익\\s*보장",
+      "리딩방",
+      "코인\\s*(리딩|추천)",
+      "텔레그램\\s*(문의|연락|상담|아이디|id|@)",
+      "\\bt\\.me/",
+      "open\\.kakao\\.com",
+      "카톡\\s*(아이디|id|ID)",
+      "라인\\s*(아이디|id)",
+      "01[016789][-\\s.]?\\d{3,4}[-\\s.]?\\d{4}",
+      "casino",
+      "viagra",
+      "cialis",
+      "escort",
+      "airdrop",
+      "bit\\.ly/",
+      "whatsapp"
+    ],
+    "allowDomains": [
+      "wwhalefe-log.vercel.app",
+      "github.com",
+      "learn.microsoft.com",
+      "microsoft.com"
+    ]
+  },
+  "abuse": {
+    "words": [
+      "씨발",
+      "시발",
+      "씨바",
+      "씨팔",
+      "시팔",
+      "ㅅㅂ",
+      "ㅆㅂ",
+      "병신",
+      "븅신",
+      "ㅂㅅ",
+      "ㅄ",
+      "개새끼",
+      "개새기",
+      "개색기",
+      "좆",
+      "ㅈ같",
+      "지랄",
+      "ㅈㄹ",
+      "닥쳐",
+      "미친놈",
+      "미친년",
+      "미친새끼",
+      "엠창",
+      "느금마",
+      "니애미",
+      "니미럴",
+      "애미뒤",
+      "애비뒤",
+      "꺼지라",
+      "뒤져라",
+      "뒤지셈",
+      "한남충",
+      "김치녀",
+      "틀딱",
+      "급식충",
+      "fuck",
+      "shit",
+      "bitch",
+      "asshole",
+      "retard",
+      "motherfucker"
+    ],
+    "allowPhrases": [
+      "시발점",
+      "시발역",
+      "시발택시",
+      "시발자동차"
+    ]
+  },
+  "ai": {
+    "_doc": "규칙에 걸리지 않은 댓글을 Claude 로 한 번 더 판정한다. enabled 를 true 로 바꾸고 저장소 Secret ANTHROPIC_API_KEY 를 등록하면 켜진다",
+    "enabled": false,
+    "model": "claude-haiku-5-5"
+  }
+}

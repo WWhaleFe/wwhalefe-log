@@ -1,18 +1,21 @@
 import { getPosts } from "../apis/notion-client/getPosts"
+import { filterPosts } from "src/libs/utils/notion"
 import { CONFIG } from "site.config"
 import { getServerSideSitemap, ISitemapField } from "next-sitemap"
 import { GetServerSideProps } from "next"
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const posts = await getPosts()
-  const dynamicPaths = posts.map((post) => `${CONFIG.link}/${post.slug}`)
+  // 목록에 보이는 글만 싣는다. PublicOnDetail 은 링크로만 공유하는 글이라 뺀다
+  const posts = filterPosts(await getPosts(), {
+    acceptStatus: ["Public"],
+    acceptType: ["Post", "Paper", "Page"],
+  })
 
-  // Create an array of fields, each with a loc and lastmod
-  const fields: ISitemapField[] = dynamicPaths.map((path) => ({
-    loc: path,
-    lastmod: new Date().toISOString(),
+  const fields: ISitemapField[] = posts.map((post) => ({
+    loc: `${CONFIG.link}/${encodeURIComponent(post.slug)}`,
+    lastmod: new Date(post.date?.start_date || post.createdTime).toISOString(),
     priority: 0.7,
-    changefreq: "daily",
+    changefreq: "weekly",
   }))
 
   // Include the site root separately
