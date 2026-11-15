@@ -11,7 +11,7 @@ type Props = {
 // strict 로 두어 slug 가 비슷한 글끼리 댓글이 섞이지 않게 한다.
 // 테마는 public/giscus/*.css (블로그 clay 스타일). giscus 가 교차 출처로 읽으므로
 // 운영 주소의 파일을 쓰고, 바꿀 때는 THEME_VERSION 을 올려 캐시를 비운다.
-const THEME_VERSION = 1
+const THEME_VERSION = 2
 const Giscus: React.FC<Props> = ({ term }) => {
   const [scheme] = useScheme()
 

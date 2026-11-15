@@ -1,4 +1,6 @@
-/* dark.css·light.css 가 함께 쓰는 모양. 색은 각 파일의 변수로 받는다 */
+/* dark.css·light.css 가 함께 쓰는 모양. 색은 각 파일의 변수로 받는다.
+   giscus 기본 규칙(#__next .rounded-md, .gsc-comment-box:not(...))이 더 구체적이라
+   모서리·테두리는 !important 로 덮는다 */
 main,
 main .gsc-main {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
@@ -7,8 +9,8 @@ main .gsc-main {
 
 /* 작성 상자: 글 이동 카드와 같은 claySoft 카드 */
 main .gsc-comment-box {
-  border: none;
-  border-radius: 1.25rem;
+  border: none !important;
+  border-radius: 1.25rem !important;
   overflow: hidden;
   background: var(--clay-soft);
   box-shadow: var(--clay-soft-shadow);
@@ -18,7 +20,7 @@ main .gsc-comment-box-tabs {
   border-color: var(--color-border-muted);
 }
 main .gsc-comment-box-tabs button {
-  border-radius: 9999px 9999px 0 0;
+  border-radius: 9999px 9999px 0 0 !important;
 }
 main .gsc-comment-box-textarea,
 main .gsc-comment-box-textarea-extras {
@@ -26,10 +28,10 @@ main .gsc-comment-box-textarea-extras {
   border-color: var(--color-border-muted);
 }
 main .gsc-comment-box-textarea {
-  border-radius: 0.875rem 0.875rem 0 0;
+  border-radius: 0.875rem 0.875rem 0 0 !important;
 }
 main .gsc-comment-box-textarea-extras {
-  border-radius: 0 0 0.875rem 0.875rem;
+  border-radius: 0 0 0.875rem 0.875rem !important;
 }
 main .gsc-comment-box-textarea:focus {
   border-color: var(--color-accent-muted);
@@ -39,12 +41,12 @@ main .gsc-comment-box-textarea:focus {
 /* 주요 버튼: 사이트의 활성 알약(분홍→보라) */
 main .btn,
 main .btn-primary {
-  border-radius: 9999px;
+  border-radius: 9999px !important;
 }
 main .btn-primary {
   background: var(--pill);
   box-shadow: var(--pill-shadow);
-  border: none;
+  border: none !important;
 }
 main .btn-primary:hover {
   background: var(--pill);
@@ -53,8 +55,8 @@ main .btn-primary:hover {
 
 /* 댓글 하나하나: claySoft 카드 */
 main .gsc-comment > div {
-  border: none;
-  border-radius: 1.25rem;
+  border: none !important;
+  border-radius: 1.25rem !important;
   background: var(--clay-soft);
   box-shadow: var(--clay-soft-shadow);
 }
@@ -72,8 +74,8 @@ main .gsc-comment-header a:has(time) {
 main .gsc-social-reaction-summary-item,
 main .gsc-reactions-button,
 main .gsc-header button {
-  border-radius: 9999px;
+  border-radius: 9999px !important;
 }
 main .gsc-reactions-popover {
-  border-radius: 1rem;
+  border-radius: 1rem !important;
 }
