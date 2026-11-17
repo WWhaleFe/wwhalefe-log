@@ -16,9 +16,9 @@ import "katex/dist/katex.min.css"
 import { FC } from "react"
 import styled from "@emotion/styled"
 
-const _NotionRenderer = dynamic(
-  () => import("react-notion-x").then((m) => m.NotionRenderer),
-  { ssr: false }
+// 본문을 서버에서 그려야 검색엔진이 HTML 만으로 글 내용을 읽는다
+const _NotionRenderer = dynamic(() =>
+  import("react-notion-x").then((m) => m.NotionRenderer)
 )
 
 const Code = dynamic(() =>
