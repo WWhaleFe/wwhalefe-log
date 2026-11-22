@@ -1,5 +1,6 @@
 import React, { MouseEvent } from "react"
 import { navigateWithTransition } from "src/libs/utils/viewTransition"
+import { stripLeadingEmoji } from "src/libs/utils"
 import { COLOR_SET } from "./constants"
 import styled from "@emotion/styled"
 
@@ -38,7 +39,7 @@ const Category: React.FC<Props> = ({ readOnly = false, children }) => {
         className="dot"
         css={{ backgroundColor: getColorClassByName(children) }}
       />
-      {children}
+      {stripLeadingEmoji(children)}
     </StyledWrapper>
   )
 }

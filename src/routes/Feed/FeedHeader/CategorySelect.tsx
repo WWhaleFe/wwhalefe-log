@@ -6,6 +6,7 @@ import { DEFAULT_CATEGORY } from "src/constants"
 import styled from "@emotion/styled"
 import { useCategoriesQuery } from "src/hooks/useCategoriesQuery"
 import { navigateWithTransition } from "src/libs/utils/viewTransition"
+import { stripLeadingEmoji } from "src/libs/utils"
 
 type Props = {}
 
@@ -27,7 +28,7 @@ const CategorySelect: React.FC<Props> = () => {
   return (
     <StyledWrapper>
       <div ref={dropdownRef} className="wrapper" onClick={handleOpen}>
-        <span className="name">{currentCategory} Posts</span>
+        <span className="name">{stripLeadingEmoji(currentCategory)} Posts</span>
         <span className="badge">{data[currentCategory] ?? 0}</span>
         <MdExpandMore className="chevron" />
       </div>
@@ -40,7 +41,7 @@ const CategorySelect: React.FC<Props> = () => {
               key={idx}
               onClick={() => handleOptionClick(key)}
             >
-              <span>{key}</span>
+              <span>{stripLeadingEmoji(key)}</span>
               <span className="n">{data[key]}</span>
             </div>
           ))}
