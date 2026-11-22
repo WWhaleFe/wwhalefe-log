@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import React, { useCallback, useEffect, useState } from "react"
+import { FiLock } from "react-icons/fi"
 import { PublicComment } from "src/libs/comments/types"
 import CommentForm from "./CommentForm"
 
@@ -175,7 +176,10 @@ const CommentItem: React.FC<ItemProps> = ({
       <div className="meta">
         <span className="name">{c.name}</span>
         {c.admin && <span className="badge">관리자</span>}
-        {c.secret && <span className="tag">🔒 비밀</span>}
+        {c.secret && <span className="tag">
+            <FiLock className="lock" aria-hidden />
+            비밀
+          </span>}
         {status && <span className="tag warn">{STATUS_LABEL[status]}</span>}
         <time dateTime={c.createdAt}>{formatTime(c.createdAt)}</time>
       </div>
@@ -437,10 +441,18 @@ const StyledItem = styled.div`
 
   .badge,
   .tag {
+    display: inline-flex;
     padding: 0 0.5rem;
+    gap: 0.25rem;
+    align-items: center;
     border-radius: 9999px;
-    font-size: 0.6875rem;
-    line-height: 1.125rem;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+
+    .lock {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
   }
   .badge {
     ${({ theme }) => theme.surfaces.activePill}
