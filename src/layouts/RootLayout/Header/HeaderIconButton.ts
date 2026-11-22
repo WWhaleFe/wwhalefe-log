@@ -8,7 +8,7 @@ const HeaderIconButton = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 9999px;
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1;
   color: ${({ theme }) => theme.colors.gray12};
   ${({ theme }) => theme.surfaces.claySoft}

@@ -2,7 +2,6 @@ import React, { MouseEvent } from "react"
 import { navigateWithTransition } from "src/libs/utils/viewTransition"
 import { COLOR_SET } from "./constants"
 import styled from "@emotion/styled"
-import { colors } from "src/styles"
 
 export const getColorClassByName = (name: string): string => {
   try {
@@ -33,11 +32,12 @@ const Category: React.FC<Props> = ({ readOnly = false, children }) => {
   return (
     <StyledWrapper
       onClick={handleClick}
-      css={{
-        backgroundColor: getColorClassByName(children),
-        cursor: readOnly ? "default" : "pointer",
-      }}
+      css={{ cursor: readOnly ? "default" : "pointer" }}
     >
+      <span
+        className="dot"
+        css={{ backgroundColor: getColorClassByName(children) }}
+      />
       {children}
     </StyledWrapper>
   )
@@ -46,15 +46,23 @@ const Category: React.FC<Props> = ({ readOnly = false, children }) => {
 export default Category
 
 const StyledWrapper = styled.div`
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  border-radius: 9999px;
+  display: flex;
+  height: 1.75rem;
+  padding: 0 0.625rem;
+  gap: 0.375rem;
+  align-items: center;
   width: fit-content;
-  font-size: 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
   line-height: 1.25rem;
-  font-weight: 600;
-  color: ${colors.dark.gray1};
-  ${({ theme }) => theme.surfaces.chipShadow}
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.gray12};
+  ${({ theme }) => theme.surfaces.claySoft}
+
+  .dot {
+    flex: 0 0 auto;
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-radius: 9999px;
+  }
 `

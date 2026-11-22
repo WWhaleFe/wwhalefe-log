@@ -70,14 +70,22 @@ const StyledSelect = styled.select`
   display: block;
   box-sizing: border-box;
   width: 100%;
+  height: 2.5rem;
   margin-bottom: 0.75rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 1rem;
-  font-size: 0.875rem;
+  padding: 0 0.875rem;
+  border: ${({ theme }) => theme.surfaces.dashed};
+  border-radius: 9999px;
+  background: transparent;
+  font-family: ${({ theme }) => theme.variables.monoFont};
+  font-size: 0.8125rem;
   line-height: 1.25rem;
   color: ${({ theme }) => theme.colors.gray12};
   cursor: pointer;
-  ${({ theme }) => theme.surfaces.glass}
+  transition: background-color 150ms ${({ theme }) => theme.variables.easing};
+
+  :hover {
+    ${({ theme }) => theme.surfaces.hover}
+  }
 
   :focus-visible {
     outline: 2px solid ${({ theme }) => theme.surfaces.focusRing};

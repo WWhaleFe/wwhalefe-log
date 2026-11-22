@@ -26,13 +26,13 @@ const OrderButtons: React.FC<Props> = () => {
         data-active={currentOrder === "desc"}
         onClick={() => handleClickOrderBy("desc")}
       >
-        Desc
+        Newest
       </a>
       <a
         data-active={currentOrder === "asc"}
         onClick={() => handleClickOrderBy("asc")}
       >
-        Asc
+        Oldest
       </a>
     </StyledWrapper>
   )
@@ -40,21 +40,33 @@ const OrderButtons: React.FC<Props> = () => {
 
 export default OrderButtons
 
+// 영상의 Today·7 days 토글처럼 들어간 홈 위에 고른 칸만 떠 있는 세그먼트
 const StyledWrapper = styled.div`
   display: flex;
-  gap: 0.5rem;
-  font-size: 0.875rem;
+  padding: 0.1875rem;
+  gap: 0.125rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
   line-height: 1.25rem;
+  ${({ theme }) => theme.surfaces.well}
   a {
     padding: 0.25rem 0.75rem;
+    border: 1px solid transparent;
     border-radius: 9999px;
     cursor: pointer;
-    color: ${({ theme }) => theme.colors.gray12};
-    ${({ theme }) => theme.surfaces.claySoft}
+    color: ${({ theme }) => theme.colors.gray11};
+    transition-property: background-color, color, box-shadow;
+    transition-duration: 150ms;
+    transition-timing-function: ${({ theme }) => theme.variables.easing};
+
+    :hover {
+      color: ${({ theme }) => theme.colors.gray12};
+    }
 
     &[data-active="true"] {
-      font-weight: 700;
-      ${({ theme }) => theme.surfaces.activePill}
+      font-weight: 500;
+      color: ${({ theme }) => theme.colors.gray12};
+      ${({ theme }) => theme.surfaces.claySoft}
     }
   }
 `

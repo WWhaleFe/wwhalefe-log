@@ -3,7 +3,8 @@ import { Global as _Global, css, useTheme } from "@emotion/react"
 import { ThemeProvider as _ThemeProvider } from "@emotion/react"
 import { pretendard } from "src/assets"
 
-const SPRING_EASING = "cubic-bezier(0.34, 1.3, 0.64, 1)"
+// 튀지 않고 부드럽게 멈추는 곡선 하나만 쓴다
+const SPRING_EASING = "cubic-bezier(0.2, 0, 0, 1)"
 
 export const Global = () => {
   const theme = useTheme()
@@ -21,6 +22,7 @@ export const Global = () => {
           font-style: ${pretendard.style.fontStyle};
           -webkit-user-select: none;
           user-select: none;
+          -webkit-font-smoothing: antialiased;
         }
 
         body::before {
@@ -30,6 +32,11 @@ export const Global = () => {
           z-index: -1;
           background: ${theme.surfaces.pageGlow};
           pointer-events: none;
+        }
+
+        ::selection {
+          background: ${theme.surfaces.accent};
+          color: ${theme.surfaces.accentText};
         }
 
         * {
@@ -127,28 +134,28 @@ export const Global = () => {
         @keyframes view-pop-in {
           from {
             opacity: 0;
-            transform: translateY(1.5rem) scale(0.88);
+            transform: translateY(0.5rem) scale(0.98);
           }
         }
 
         @keyframes view-pop-out {
           to {
             opacity: 0;
-            transform: translateY(1.5rem) scale(0.88);
+            transform: translateY(0.5rem) scale(0.98);
           }
         }
 
         @keyframes view-slide-in {
           from {
             opacity: 0;
-            transform: translateX(-1.25rem);
+            transform: translateX(-0.5rem);
           }
         }
 
         @keyframes view-slide-out {
           to {
             opacity: 0;
-            transform: translateX(-1.25rem);
+            transform: translateX(-0.5rem);
           }
         }
 
@@ -176,7 +183,7 @@ export const Global = () => {
           width: 100%;
           border: none;
           margin: 0;
-          border-top: 1px solid ${theme.colors.gray6};
+          border-top: 1px solid ${theme.surfaces.hairline};
         }
       `}
     />
