@@ -73,6 +73,11 @@ const CONFIG = {
     enable: true,
     dataSourceId: "41934b7a-9e74-81a1-8f2d-000b6b659135",
   },
+  // 방문 기록. Notion 「📊 블로그 방문 기록」 DB 에 조회 1건이 한 줄로 쌓인다
+  visits: {
+    enable: true,
+    dataSourceId: "42034b7a-9e74-8139-9d09-000b6561fd44",
+  },
   cusdis: {
     enable: false,
     config: {
