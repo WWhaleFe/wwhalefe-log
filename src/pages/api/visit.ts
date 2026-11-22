@@ -9,6 +9,34 @@ import {
 
 const recentVisits = new Map<string, number>()
 const DEDUP_MS = 30 * 60 * 1000
+// 요청 제한. 서버 인스턴스마다 따로 센다(최선 노력)
+const WINDOW_MS = 60 * 1000
+const PER_IP_LIMIT = 20 // 한 IP 가 1분에 보낼 수 있는 기록 요청
+const WRITE_LIMIT = 60 // 인스턴스 전체가 1분에 Notion 에 쓸 수 있는 줄 수(댓글용 API 한도 보호)
+const ipHits = new Map<string, { start: number; count: number }>()
+let writes = { start: 0, count: 0 }
+
+const overIpLimit = (ip: string, now: number) => {
+  const hit = ipHits.get(ip)
+  if (!hit || now - hit.start >= WINDOW_MS) {
+    ipHits.set(ip, { start: now, count: 1 })
+    if (ipHits.size > 5000) {
+      for (const [key, value] of ipHits) {
+        if (now - value.start >= WINDOW_MS) ipHits.delete(key)
+      }
+    }
+    return false
+  }
+  hit.count += 1
+  return hit.count > PER_IP_LIMIT
+}
+
+const overWriteLimit = (now: number) => {
+  if (now - writes.start >= WINDOW_MS) writes = { start: now, count: 0 }
+  writes.count += 1
+  return writes.count > WRITE_LIMIT
+}
+
 const BOT =
   /bot|crawl|spider|slurp|preview|facebookexternalhit|headless|lighthouse|python|curl|wget/i
 
@@ -27,6 +55,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   ) {
     return res.status(204).end()
   }
+  const forwarded = String(req.headers["x-forwarded-for"] ?? "")
+  const ip = forwarded.split(",")[0].trim() || req.socket.remoteAddress || ""
+  if (overIpLimit(ip, Date.now())) return res.status(429).end()
 
   let body = req.body
   if (typeof body === "string") {
@@ -65,6 +96,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     for (const [oldKey, time] of recentVisits) {
       if (now - time < DEDUP_MS && recentVisits.size <= 1000) break
       recentVisits.delete(oldKey)
+    }
+    if (overWriteLimit(now)) {
+      recentVisits.delete(key)
+      return res.status(429).end()
     }
     await recordVisit(req, page, {
       date,
