@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { useRouter } from "next/router"
 import React from "react"
-import { Emoji } from "src/components/Emoji"
+import SectionTitle from "src/components/SectionTitle"
 import { ALL_TAG } from "src/constants"
 import { useTagsQuery } from "src/hooks/useTagsQuery"
 import { navigateWithTransition } from "src/libs/utils/viewTransition"
@@ -54,9 +54,9 @@ const TagList: React.FC<Props> = () => {
 
   return (
     <StyledWrapper>
-      <div className="top">
-        <Emoji>🏷️</Emoji> Tags
-      </div>
+      <SectionTitle className="top" count={tagNames.length}>
+        Tags
+      </SectionTitle>
       <div className="list">
         <a data-active={isAllActive} onClick={handleClickAll}>
           {ALL_TAG}
@@ -80,18 +80,16 @@ export default TagList
 const StyledWrapper = styled.div`
   .top {
     display: none;
-    padding: 0.25rem;
-    margin-bottom: 0.75rem;
 
     @media (min-width: 1024px) {
-      display: block;
+      display: flex;
     }
   }
 
   .list {
     display: flex;
     margin-bottom: 1.5rem;
-    gap: 0.5rem;
+    gap: 0.375rem;
     padding: 0.25rem 0.25rem 0.75rem;
     overflow: scroll;
 
@@ -105,6 +103,7 @@ const StyledWrapper = styled.div`
     @media (min-width: 1024px) {
       flex-wrap: wrap;
       overflow: visible;
+      margin-bottom: 2rem;
       padding: 0.75rem;
       border-radius: 1.5rem;
       ${({ theme }) => theme.surfaces.glass}
@@ -112,20 +111,20 @@ const StyledWrapper = styled.div`
 
     a {
       display: block;
-      padding: 0.25rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      margin-top: 0.25rem;
-      margin-bottom: 0.25rem;
-      border-radius: 0.75rem;
-      font-size: 0.875rem;
+      padding: 0.375rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
       line-height: 1.25rem;
       color: ${({ theme }) => theme.colors.gray12};
       flex-shrink: 0;
       cursor: pointer;
+      ${({ theme }) => theme.surfaces.claySoft}
+      transition-property: background-color, color, box-shadow;
+      transition-duration: 150ms;
+      transition-timing-function: ${({ theme }) => theme.variables.easing};
 
       :hover {
-        ${({ theme }) => theme.surfaces.hover}
+        border-color: ${({ theme }) => theme.colors.gray8};
       }
       &[data-active="true"] {
         ${({ theme }) => theme.surfaces.activePill}

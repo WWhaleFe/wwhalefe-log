@@ -38,12 +38,12 @@ const StyledWrapper = styled.div`
   max-width: 1680px;
   margin: 0.75rem auto 0;
   border-radius: 1.5rem;
-  ${({ theme }) => theme.surfaces.glass}
+  ${({ theme }) => theme.surfaces.bar}
 
   .container {
     display: flex;
     padding-left: 1rem;
-    padding-right: 1rem;
+    padding-right: 0.5rem;
     justify-content: space-between;
     align-items: center;
     width: 100%;
@@ -58,7 +58,7 @@ const StyledWrapper = styled.div`
     }
     .nav {
       display: flex;
-      gap: 0.75rem;
+      gap: 0.5rem;
       align-items: center;
     }
   }

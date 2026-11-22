@@ -66,7 +66,6 @@ const BlogLayout: React.FC<Props> = ({
 
   const recentPosts = (
     <PostTitleList
-      emoji="🆕"
       title="Recent Posts"
       posts={posts.slice(0, RECENT_POST_COUNT)}
       showDate
@@ -114,6 +113,7 @@ const BlogLayout: React.FC<Props> = ({
         <SideSection name="search">
           <form className="search" onSubmit={handleSearchSubmit}>
             <SearchInput
+              hint={search ? undefined : "Enter"}
               value={search?.value ?? keyword}
               onChange={search?.onChange ?? ((e) => setKeyword(e.target.value))}
             />
@@ -204,7 +204,7 @@ const StyledWrapper = styled.div`
   }
 
   > .rt .search {
-    padding-top: 1rem;
+    padding-top: 0;
   }
 
   > .rt .footer {

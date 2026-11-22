@@ -26,11 +26,28 @@ const StyledWrapper = styled.div`
   ul {
     display: flex;
     flex-direction: row;
+    margin: 0;
     li {
       display: block;
-      margin-left: 1rem;
-      font-weight: 600;
-      color: ${({ theme }) => theme.colors.gray12};
+      margin-left: 0.25rem;
+      a {
+        display: block;
+        padding: 0.3125rem 0.875rem;
+        border: ${({ theme }) => theme.surfaces.dashed};
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        font-weight: 500;
+        color: ${({ theme }) => theme.colors.gray12};
+        transition: background-color 150ms ${({ theme }) => theme.variables.easing};
+
+        :hover {
+          ${({ theme }) => theme.surfaces.hover}
+        }
+        :focus-visible {
+          outline: 2px solid ${({ theme }) => theme.surfaces.focusRing};
+        }
+      }
     }
   }
 `

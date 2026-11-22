@@ -3,7 +3,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { ReactNode } from "react"
 import { CONFIG } from "site.config"
-import { Emoji } from "src/components/Emoji"
+import SectionTitle from "src/components/SectionTitle"
 import { formatDate } from "src/libs/utils"
 import { handleLinkClick } from "src/libs/utils/viewTransition"
 import { TPost } from "src/types"
@@ -30,11 +30,7 @@ const PostTitleList: React.FC<Props> = ({
 
   return (
     <StyledWrapper>
-      {title && (
-        <div className="top">
-          <Emoji>{emoji}</Emoji> {title}
-        </div>
-      )}
+      {title && <SectionTitle>{title}</SectionTitle>}
       {control}
       <div className="list" data-text-list={control ? true : undefined}>
         {posts.map((post) => (
@@ -64,40 +60,47 @@ const PostTitleList: React.FC<Props> = ({
 export default PostTitleList
 
 const StyledWrapper = styled.div`
-  margin-bottom: 1.5rem;
-
-  .top {
-    padding: 0.25rem;
-    margin-bottom: 0.75rem;
-  }
+  margin-bottom: 2rem;
 
   .list {
     display: flex;
     padding: 0.5rem;
     flex-direction: column;
-    gap: 0.125rem;
+    gap: 0.375rem;
     border-radius: 1.5rem;
     ${({ theme }) => theme.surfaces.glass}
 
     a {
       display: block;
-      padding: 0.5rem 0.75rem;
+      padding: 0.625rem 0.75rem;
+      border: 1px solid transparent;
       border-radius: 1rem;
       font-size: 0.875rem;
       line-height: 1.25rem;
       color: ${({ theme }) => theme.colors.gray12};
       cursor: pointer;
+      transition-property: background-color, border-color, box-shadow;
+      transition-duration: 150ms;
+      transition-timing-function: ${({ theme }) => theme.variables.easing};
 
       :hover {
-        ${({ theme }) => theme.surfaces.hover}
+        ${({ theme }) => theme.surfaces.claySoft}
       }
-      &[data-active="true"] {
-        ${({ theme }) => theme.surfaces.activePill}
 
-        .date {
-          color: inherit;
-        }
+      :focus-visible {
+        outline: 2px solid ${({ theme }) => theme.surfaces.focusRing};
+        outline-offset: 1px;
       }
+
+      &[data-active="true"] {
+        ${({ theme }) => theme.surfaces.claySoft}
+        box-shadow: 0 0 0 2px ${({ theme }) => theme.surfaces.accent};
+      }
+    }
+
+    /* 최근 글처럼 짧은 목록은 대기열 카드처럼 사선 무늬 칸으로 보인다 */
+    &:not([data-text-list]) a:not(:hover):not([data-active="true"]) {
+      ${({ theme }) => theme.surfaces.hatch}
     }
 
     .title {
@@ -109,10 +112,12 @@ const StyledWrapper = styled.div`
 
     .date {
       display: block;
-      margin-top: 0.125rem;
+      margin-top: 0.25rem;
+      font-family: ${({ theme }) => theme.variables.monoFont};
       font-size: 0.75rem;
       line-height: 1rem;
-      color: ${({ theme }) => theme.colors.gray11};
+      font-variant-numeric: tabular-nums;
+      color: ${({ theme }) => theme.colors.gray10};
     }
   }
 `

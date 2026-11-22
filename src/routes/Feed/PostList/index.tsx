@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import PostCard from "src/routes/Feed/PostList/PostCard"
 import { ALL_TAG, DEFAULT_CATEGORY } from "src/constants"
 import usePostsQuery from "src/hooks/usePostsQuery"
+import styled from "@emotion/styled"
 
 type Props = {
   q: string
@@ -54,7 +55,7 @@ const PostList: React.FC<Props> = ({ q }) => {
     <>
       <div className="my-2">
         {!filteredPosts.length && (
-          <p className="text-gray-500 dark:text-gray-300">Nothing! 😺</p>
+          <StyledEmpty>맞는 글이 없습니다</StyledEmpty>
         )}
         {filteredPosts.map((post) => (
           <PostCard key={post.id} data={post} />
@@ -65,3 +66,15 @@ const PostList: React.FC<Props> = ({ q }) => {
 }
 
 export default PostList
+
+const StyledEmpty = styled.p`
+  margin: 0 0 1rem;
+  padding: 2.5rem 1rem;
+  border: ${({ theme }) => theme.surfaces.dashed};
+  border-radius: 1.5rem;
+  font-family: ${({ theme }) => theme.variables.monoFont};
+  font-size: 0.8125rem;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.gray11};
+  ${({ theme }) => theme.surfaces.hatch}
+`
