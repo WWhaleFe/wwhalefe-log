@@ -2,7 +2,8 @@ import styled from "@emotion/styled"
 import { PageBlock } from "notion-types"
 import { getPageTableOfContents } from "notion-utils"
 import React from "react"
-import { Emoji } from "src/components/Emoji"
+import SectionTitle from "src/components/SectionTitle"
+import { stripLeadingEmoji } from "src/libs/utils"
 import usePostQuery from "src/hooks/usePostQuery"
 
 const MIN_HEADINGS = 2
@@ -17,9 +18,7 @@ const TableOfContents: React.FC = () => {
 
   return (
     <StyledWrapper aria-label="On this page">
-      <div className="top">
-        <Emoji>🧭</Emoji> On this page
-      </div>
+      <SectionTitle>On this page</SectionTitle>
       <div className="list">
         {headings.map((heading) => (
           <a
@@ -27,7 +26,7 @@ const TableOfContents: React.FC = () => {
             href={`#${heading.id.replace(/-/g, "")}`}
             style={{ paddingLeft: `${0.75 + heading.indentLevel * 0.75}rem` }}
           >
-            {heading.text}
+            {stripLeadingEmoji(heading.text)}
           </a>
         ))}
       </div>
@@ -39,11 +38,6 @@ export default TableOfContents
 
 const StyledWrapper = styled.nav`
   margin-bottom: 2.25rem;
-
-  .top {
-    padding: 0.25rem;
-    margin-bottom: 0.75rem;
-  }
 
   .list {
     display: flex;
@@ -61,6 +55,7 @@ const StyledWrapper = styled.nav`
       line-height: 1.125rem;
       color: ${({ theme }) => theme.colors.gray12};
       cursor: pointer;
+      transition: background-color 150ms ${({ theme }) => theme.variables.easing};
 
       :hover {
         ${({ theme }) => theme.surfaces.hover}

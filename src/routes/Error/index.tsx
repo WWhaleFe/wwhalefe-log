@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 import React from "react"
-import { Emoji } from "src/components/Emoji"
 
 type Props = {}
 
@@ -8,12 +7,8 @@ const CustomError: React.FC<Props> = () => {
   return (
     <StyledWrapper>
       <div className="wrapper">
-        <div className="top">
-          <div>4</div>
-          <Emoji>🤔</Emoji>
-          <div>4</div>
-        </div>
-        <div className="text">Post not found</div>
+        <div className="top">404</div>
+        <div className="text">글을 찾을 수 없습니다</div>
       </div>
     </StyledWrapper>
   )
@@ -34,17 +29,22 @@ const StyledWrapper = styled.div`
     padding-top: 5rem;
     padding-bottom: 5rem;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 1.5rem;
     align-items: center;
     > .top {
-      display: flex;
-      align-items: center;
+      padding: 1.5rem 2.5rem;
+      border: ${({ theme }) => theme.surfaces.dashed};
+      border-radius: 1.75rem;
+      font-family: ${({ theme }) => theme.variables.monoFont};
       font-size: 3.75rem;
       line-height: 1;
+      letter-spacing: 0.04em;
+      color: ${({ theme }) => theme.colors.gray12};
+      ${({ theme }) => theme.surfaces.hatch}
     }
     > .text {
-      font-size: 1.875rem;
-      line-height: 2.25rem;
+      font-size: 1.25rem;
+      line-height: 1.75rem;
       color: ${({ theme }) => theme.colors.gray11};
     }
   }
