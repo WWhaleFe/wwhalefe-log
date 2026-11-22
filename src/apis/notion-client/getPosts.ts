@@ -20,6 +20,7 @@ const toPost = (page: any): TPost => {
     slug: plainText(props.slug),
     summary: plainText(props.summary),
     createdTime: new Date(page.created_time).toString(),
+    updatedTime: page.last_edited_time,
     fullWidth: false,
   }
 
